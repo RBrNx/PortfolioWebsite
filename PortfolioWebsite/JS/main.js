@@ -1,0 +1,1 @@
+﻿//$(".main-container").perfectScrollbar({ suppressScrollX: true, wheelSpeed: 0.6 });
