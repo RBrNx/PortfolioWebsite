@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\inetpub\wwwroot\PortfolioWebsite</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="ApplicationInsights.config">
+      <publishTime>05/23/2018 15:15:57</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>05/23/2018 15:15:57</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>11/30/2016 16:07:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>12/07/2016 11:45:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>12/07/2016 11:50:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>12/06/2016 15:15:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>12/07/2016 11:49:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>12/07/2016 11:50:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>12/06/2016 15:09:52</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>06/15/2015 03:06:24</publishTime>
+    </File>
+    <File Include="bin/PortfolioWebsite.dll">
+      <publishTime>05/31/2018 12:20:59</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/18/2015 21:19:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="CSS/fontawesome-all.min.css">
+      <publishTime>03/14/2018 10:15:55</publishTime>
+    </File>
+    <File Include="CSS/main.css">
+      <publishTime>05/31/2018 12:05:34</publishTime>
+    </File>
+    <File Include="CSS/main.less">
+      <publishTime>05/31/2018 12:05:41</publishTime>
+    </File>
+    <File Include="CSS/main.min.css">
+      <publishTime>05/31/2018 12:05:34</publishTime>
+    </File>
+    <File Include="img/AdventofCode.PNG">
+      <publishTime>05/29/2018 14:45:58</publishTime>
+    </File>
+    <File Include="img/Chequered_Showcase.png">
+      <publishTime>05/29/2018 14:38:23</publishTime>
+    </File>
+    <File Include="img/Dual Ring-Small.png">
+      <publishTime>03/13/2018 16:43:26</publishTime>
+    </File>
+    <File Include="img/EdgeDetection.jpg">
+      <publishTime>05/29/2018 12:24:37</publishTime>
+    </File>
+    <File Include="img/fireworks.png">
+      <publishTime>05/29/2018 11:02:33</publishTime>
+    </File>
+    <File Include="img/mathmath.png">
+      <publishTime>05/29/2018 09:08:01</publishTime>
+    </File>
+    <File Include="img/PortfolioWebsite_2.png">
+      <publishTime>05/29/2018 12:41:40</publishTime>
+    </File>
+    <File Include="img/Puttered_Showcase.png">
+      <publishTime>05/29/2018 14:22:20</publishTime>
+    </File>
+    <File Include="img/Redbaron Games Logo 2 - Small.png">
+      <publishTime>05/31/2018 11:43:42</publishTime>
+    </File>
+    <File Include="img/Redbaron Games Logo.png">
+      <publishTime>05/30/2018 10:05:06</publishTime>
+    </File>
+    <File Include="img/RedbaronGames-1.png">
+      <publishTime>05/29/2018 09:37:26</publishTime>
+    </File>
+    <File Include="img/RedbaronGames-2.png">
+      <publishTime>05/29/2018 11:24:17</publishTime>
+    </File>
+    <File Include="img/Sokoban_Showcase.png">
+      <publishTime>05/30/2018 16:23:47</publishTime>
+    </File>
+    <File Include="index.html">
+      <publishTime>05/31/2018 12:03:15</publishTime>
+    </File>
+    <File Include="JS/jquery-3.2.1.min.js">
+      <publishTime>10/11/2017 12:05:53</publishTime>
+    </File>
+    <File Include="JS/main.js">
+      <publishTime>05/31/2018 14:48:30</publishTime>
+    </File>
+    <File Include="JS/perfect-scrollbar.jquery.js">
+      <publishTime>01/06/2017 09:34:37</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>05/23/2018 15:15:57</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>05/31/2018 11:40:52</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

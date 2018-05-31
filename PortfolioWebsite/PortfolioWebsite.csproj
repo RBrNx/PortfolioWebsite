@@ -94,9 +94,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\Coleman%402x.png" />
-    <Content Include="img\IOT-Window%402x.png" />
-    <Content Include="img\sokogenerator.png" />
+    <Content Include="img\AdventofCode.png" />
+    <Content Include="img\Chequered_Showcase.png" />
+    <Content Include="img\Dual Ring-Small.png" />
+    <Content Include="img\EdgeDetection.jpg" />
+    <Content Include="img\fireworks.png" />
+    <Content Include="img\mathmath.png" />
+    <Content Include="img\PortfolioWebsite_2.png" />
+    <Content Include="img\Puttered_Showcase.png" />
+    <Content Include="img\Redbaron Games Logo 2 - Small.png" />
+    <Content Include="img\Redbaron Games Logo.png" />
+    <Content Include="img\RedbaronGames-1.png" />
+    <Content Include="img\RedbaronGames-2.png" />
+    <Content Include="img\Sokoban_Showcase.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -106,6 +116,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\PortfolioWebsite.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

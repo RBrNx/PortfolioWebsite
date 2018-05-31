@@ -28,6 +28,6 @@ C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\Portfol
 C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\PortfolioWebsite\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\PortfolioWebsite\bin\Microsoft.ApplicationInsights.xml
 C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\PortfolioWebsite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.csprojResolveAssemblyReference.cache
 C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.dll
 C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.pdb
+C:\Users\watsonco\Documents\Visual Studio 2015\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.csprojResolveAssemblyReference.cache
