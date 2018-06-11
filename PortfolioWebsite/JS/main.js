@@ -47,7 +47,7 @@ $(".pt-page-current").scroll(function (event) {
 function getRepos() {
     return $.ajax({
         url: "https://api.github.com/users/RBrNx/repos",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token c7e2a7fb2dac6f1dc8c5c712556641d995912ab8" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bdd6f52f4fd7e40a188827fc9c5d5138a8781f78" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -64,7 +64,7 @@ function getRepos() {
 function getWebsiteInfoFromRepo(repoName, repoID) {
     return $.ajax({
         url: "https://api.github.com/repos/RBrNx/" + repoName + "/contents/websiteinfo.json",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token c7e2a7fb2dac6f1dc8c5c712556641d995912ab8" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bdd6f52f4fd7e40a188827fc9c5d5138a8781f78" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: true,
@@ -220,6 +220,8 @@ function imageManager(options) {
 }
 
 function animateToSubpage() {
+    $(".page-2").addClass("pt-page-current");
+
     $(".carousel").slick({
         arrows: true,
         swipe: false,
@@ -229,15 +231,59 @@ function animateToSubpage() {
     });
     $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
 
-    $(".page-2 .close").off("click").click(animateToHomepage);
+    $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
 
-    PageTransitions.nextPage(21); //Very bad please change
+    $(".page-2 .close").off("click").click(animateToHomepage);
+    $(".page-1").addClass("pt-page-scaleDown").on("animationend", function () {
+        $(".page-1").off("animationend");
+        $(".page-1").removeClass("pt-page-current pt-page-scaleDown");
+    });
+    $(".page-2").addClass("pt-page-scaleUpDown pt-page-delay300").on("animationend", function () {
+        $(".page-2").off("animationend");
+        $(".page-2").removeClass("pt-page-scaleUpDown pt-page-delay300");
+
+        lastScrollTop = 0;
+        $(".pt-page-current").off("scroll").scroll(function (event) {
+            var st = $(this).scrollTop();
+
+            if (st > lastScrollTop) {
+                $("#header").addClass("scrolling-bottom").removeClass("scrolling-top");
+            } else {
+                $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+            }
+            lastScrollTop = st;
+        });
+    });
+    //PageTransitions.nextPage(21); //Very bad please change
 }
 
 function animateToHomepage() {
+    $(".page-1").addClass("pt-page-current");
+
     $(".carousel").slick("unslick");
 
-    PageTransitions.nextPage(22);
+    $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+
+    $(".page-2").addClass("pt-page-scaleDownUp").on("animationend", function () {
+        $(".page-2").off("animationend");
+        $(".page-2").removeClass("pt-page-current pt-page-scaleDownUp");
+    });
+    $(".page-1").addClass("pt-page-scaleUp pt-page-delay300").on("animationend", function () {
+        $(".page-1").off("animationend");
+        $(".page-1").removeClass("pt-page-scaleUp pt-page-delay300");
+
+        lastScrollTop = 0;
+        $(".pt-page-current").off("scroll").scroll(function (event) {
+            var st = $(this).scrollTop();
+
+            if (st > lastScrollTop) {
+                $("#header").addClass("scrolling-bottom").removeClass("scrolling-top");
+            } else {
+                $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+            }
+            lastScrollTop = st;
+        });
+    });
 }
 
 $(document).ready(function () {

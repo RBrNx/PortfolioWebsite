@@ -33,12 +33,13 @@ var repositories = [];
 var imgManager = new imageManager({ "onEmpty": imageManagerOnEmpty });
 var lastScrollTop = 0;
 
-$(".page-1").scroll(function (event) {
+$(".pt-page-current").scroll(function (event) {
     var st = $(this).scrollTop();
+    
     if (st > lastScrollTop) {
-        $(this).addClass("scrolling-bottom").removeClass("scrolling-top");
+        $("#header").addClass("scrolling-bottom").removeClass("scrolling-top");
     } else {
-        $(this).addClass("scrolling-top").removeClass("scrolling-bottom");
+        $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
     }
     lastScrollTop = st;
 });
@@ -46,7 +47,7 @@ $(".page-1").scroll(function (event) {
 function getRepos() {
     return $.ajax({
         url: "https://api.github.com/users/RBrNx/repos",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token c7e2a7fb2dac6f1dc8c5c712556641d995912ab8" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bdd6f52f4fd7e40a188827fc9c5d5138a8781f78" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -63,7 +64,7 @@ function getRepos() {
 function getWebsiteInfoFromRepo(repoName, repoID) {
     return $.ajax({
         url: "https://api.github.com/repos/RBrNx/" + repoName + "/contents/websiteinfo.json",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token c7e2a7fb2dac6f1dc8c5c712556641d995912ab8" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bdd6f52f4fd7e40a188827fc9c5d5138a8781f78" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: true,
@@ -228,7 +229,7 @@ function animateToSubpage() {
     });
     $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
 
-    $(".page-2 .close").off().click(animateToHomepage);
+    $(".page-2 .close").off("click").click(animateToHomepage);
 
     PageTransitions.nextPage(21); //Very bad please change
 }
@@ -249,13 +250,18 @@ $(document).ready(function () {
         }
     });
 
-    $(".navbar-toggle").click(function () {
+    $(".navbar-toggle").click(function (event) {
+        event.stopPropagation();
         $("#side-menu").css({ "display": "block" });
-        $(".page-1").addClass("animate-left");
+        $(".pt-page-current, #header").addClass("animate-left");
 
-        $("#side-menu .close").off().click(function () {
-            $(".page-1").removeClass("animate-left");
+        function closeSidebar(event) {
+            event.stopPropagation();
+            $(".pt-page-current, #header").removeClass("animate-left");
             setTimeout(function () { $("#side-menu").css({ "display": "none" }); }, 350);
-        });
+            $("#side-menu .close, .pt-page-current").off("click");
+        }
+
+        $("#side-menu .close, .page-1").click(closeSidebar);
     });
 });

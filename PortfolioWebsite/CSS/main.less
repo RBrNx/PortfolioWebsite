@@ -75,6 +75,7 @@ body {
     width: 100vw;
     height: 100vh;
     perspective: 1200px;
+    overflow: hidden;
 
     #header {
         position: fixed;
@@ -281,6 +282,15 @@ body {
         }
     }
 
+    .portfolio-home{
+        cursor: pointer;
+        position: fixed;
+        top: 100px;
+        left: 15px;
+        color: @lightergrey;
+        z-index: 10;
+    }
+
     .page-1, .page-2 {
         width: 100%;
         height: 100%;
@@ -299,6 +309,8 @@ body {
         -moz-transform-style: preserve-3d;
         transform-style: preserve-3d;
         background-color: @maingrey;
+        transition: transform .333s ease-in-out;
+        box-shadow: 5px 0px 50px 0px rgba(0,0,0,0.75);
     }
 
     .pt-page-current {
@@ -313,9 +325,6 @@ body {
 
     .page-1 {
         z-index: 1;
-        transition: transform .333s ease-in-out;
-        //transform: translateX(0);
-        box-shadow: 5px 0px 50px 0px rgba(0,0,0,0.75);
 
         .main-container {
             //padding-top: 200px;
@@ -532,6 +541,7 @@ body {
         #page-wrapper {
             max-width: 380px;
             margin: 0 auto;
+            padding-top: 60px;
 
             .for-desktop-up( {
                 max-width: 800px;
@@ -716,7 +726,7 @@ body {
     animation: fadeInDown .75s ease-in;
 }
 
-/*.pt-page-delay300 {
+.pt-page-delay300 {
     -webkit-animation-delay: .3s;
     animation-delay: .3s;
 }
@@ -768,4 +778,4 @@ body {
 .pt-page-scaleUp {
 	-webkit-animation: scaleUp .7s ease both;
 	animation: scaleUp .7s ease both;
-}*/
+}
