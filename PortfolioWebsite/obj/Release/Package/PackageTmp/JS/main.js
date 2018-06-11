@@ -35,7 +35,7 @@ var imgManager = new imageManager({ "onEmpty": imageManagerOnEmpty });
 function getRepos() {
     return $.ajax({
         url: "https://api.github.com/users/RBrNx/repos",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bfdf9cb10c21e87aa083b99b61341b256b4e8e63" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token f68b1f28d433b116b0c2d344cf3a961c39cabee5" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -52,7 +52,7 @@ function getRepos() {
 function getWebsiteInfoFromRepo(repoName) {
     return $.ajax({
         url: "https://api.github.com/repos/RBrNx/" + repoName + "/contents/websiteinfo.json",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bfdf9cb10c21e87aa083b99b61341b256b4e8e63" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token f68b1f28d433b116b0c2d344cf3a961c39cabee5" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: true,
@@ -84,12 +84,15 @@ function addRepositoryToPortfolio(infoJSON) {
     var column = $(".grid-container-left");
 
     var gridItem = $("<div class='grid-item'></div>").appendTo(column);
-    var image = $("<img src='" + infoJSON.image +"'/>").appendTo(gridItem);
+    var image = $("<img class='imageMain' src='" + infoJSON.imageMain + "'/>").appendTo(gridItem);
+    var image = $("<img class='imageDrop' src='" + infoJSON.imageDrop + "'/>").appendTo(gridItem);
     var captionContainer = $("<div class='captions'></div>").appendTo(gridItem);
     var titleCaption = $("<div class='title-caption'>" + infoJSON.title + "</div>").appendTo(captionContainer);
     var descriptionCaption = $("<div class='description-caption'>" + infoJSON.description + "</div>").appendTo(captionContainer);
 
     imgManager.addImage(image, infoJSON.image);
+
+    gridItem.click(animateToSubpage);
 }
 
 function b64DecodeUnicode(str) {
@@ -173,6 +176,46 @@ function imageManager(options) {
     }
 
     if (this.options["onEmpty"] != null) this.onEmpty = options.onEmpty;
+}
+
+function animateToSubpage() {
+    $(".page-2").addClass("page-current");
+
+    $(".carousel").slick({
+        arrows: true,
+        swipe: false,
+        //infinite: true,
+        dots: true,
+        speed: 500
+    });
+
+    $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
+
+    $(".close").off().click(animateToHomepage);
+
+    $(".page-1").addClass("pt-page-scaleDown").on("animationend", function () {
+        $(".page-1").off("animationend");
+        $(".page-1").removeClass("page-current pt-page-scaleDown");
+    });
+    $(".page-2").addClass("pt-page-scaleUpDown pt-page-delay300").on("animationend", function () {
+        $(".page-2").off("animationend");
+        $(".page-2").removeClass("pt-page-scaleUpDown pt-page-delay300");
+    });
+}
+
+function animateToHomepage() {
+    $(".page-1").addClass("page-current");
+
+    $(".carousel").slick("unslick");
+
+    $(".page-2").addClass("pt-page-scaleDownUp").on("animationend", function () {
+        $(".page-2").off("animationend");
+        $(".page-2").removeClass("page-current pt-page-scaleDownUp");
+    });
+    $(".page-1").addClass("pt-page-scaleUp pt-page-delay300").on("animationend", function () {
+        $(".page-1").off("animationend");
+        $(".page-1").removeClass("pt-page-scaleUp pt-page-delay300");
+    });
 }
 
 $(document).ready(function () {
