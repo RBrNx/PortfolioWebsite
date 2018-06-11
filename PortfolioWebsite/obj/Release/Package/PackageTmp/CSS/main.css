@@ -33,15 +33,6 @@
   width: 100vw;
   height: 100vh;
   perspective: 1200px;
-  transform-style: preserve-3d;
-}
-#wrapper #click {
-  position: fixed;
-  height: 50px;
-  font-size: 60px;
-  width: 100%;
-  color: #fff;
-  z-index: 200;
 }
 #wrapper #side-menu {
   position: fixed;
@@ -52,23 +43,24 @@
   z-index: 0;
   background-color: #2d2d2d;
   color: #fff;
-  padding-top: 200px;
+  padding-top: 130px;
+  display: none;
 }
 #wrapper #side-menu .close {
   position: absolute;
   top: 15px;
   right: 25px;
-  font-size: 40px;
+  font-size: 30px;
 }
 #wrapper #side-menu .menu-item {
   display: inline-block;
   margin-left: 50%;
-  height: 100px;
-  margin-top: 75px;
-  font-size: 50px;
+  height: 45px;
+  margin-top: 35px;
+  font-size: 26px;
 }
 #wrapper #side-menu .menu-item:after {
-  height: 6px;
+  height: 3px;
   width: 20%;
   display: block;
   content: "";
@@ -78,7 +70,7 @@
   transition: width .2s linear;
 }
 #wrapper #side-menu .menu-item.active:after {
-  height: 6px;
+  height: 3px;
   width: 80%;
   display: block;
   content: "";
@@ -87,7 +79,7 @@
   position: relative;
 }
 #wrapper #side-menu .menu-item:hover:not(.active):after {
-  height: 6px;
+  height: 3px;
   width: 80%;
   display: block;
   content: "";
@@ -218,15 +210,12 @@
   width: 20%;
   display: inline-block;
   text-align: right;
-  font-size: 40px;
+  font-size: 30px;
 }
 @media (min-width: 1200px) {
   #wrapper .page-1 #header .navbar .navbar-toggle {
     display: none;
   }
-}
-#wrapper .page-1 .main-container {
-  padding-top: 200px;
 }
 #wrapper .page-1 .main-container .popup-overlay {
   display: none;
@@ -251,14 +240,13 @@
   transition: all ease .5s;
 }
 #wrapper .page-1 .main-container .title-container {
-  margin: 80px 10%;
+  margin: 130px 10% 30px 10%;
   text-align: center;
-  display: none;
 }
 #wrapper .page-1 .main-container .title-container .title {
   display: inline-block;
   font-family: 'Fjalla One', sans-serif;
-  font-size: 120px;
+  font-size: 50px;
 }
 @media (min-width: 1200px) {
   #wrapper .page-1 .main-container .title-container .title {
@@ -283,8 +271,14 @@
   }
 }
 #wrapper .page-1 .main-container .portfolio-grid {
+  margin: 0 30px;
   min-height: 900px;
   opacity: 0;
+}
+@media (min-width: 1200px) {
+  #wrapper .page-1 .main-container .portfolio-grid {
+    margin: 0 300px;
+  }
 }
 #wrapper .page-1 .main-container .portfolio-grid .grid-container-left,
 #wrapper .page-1 .main-container .portfolio-grid .grid-container-right {
@@ -421,12 +415,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 28px;
-}
-@media (min-width: 1200px) {
-  #wrapper .page-1 #footer .footer-info {
-    font-size: 16px;
-  }
+  font-size: 16px;
 }
 #wrapper .page-1 #footer .icons {
   display: inline-block;
@@ -435,25 +424,35 @@
   z-index: 2;
 }
 #wrapper .page-2 #page-wrapper {
-  max-width: 800px;
+  max-width: 380px;
   margin: 0 auto;
+}
+@media (min-width: 1200px) {
+  #wrapper .page-2 #page-wrapper {
+    max-width: 800px;
+  }
 }
 #wrapper .page-2 #page-wrapper #title {
   font-family: 'Fjalla One', sans-serif;
-  font-size: 48px;
-  padding-top: 30px;
-  height: 65px;
+  font-size: 35px;
+  padding-top: 45px;
+  text-transform: uppercase;
 }
 #wrapper .page-2 #page-wrapper #subtitle {
   font-family: Roboto;
-  font-size: 20px;
+  font-size: 16px;
 }
 #wrapper .page-2 #page-wrapper .carousel {
-  width: 100%;
+  width: calc(100% - 60px);
   margin: 50px 30px;
   height: 400px;
   display: inline-block;
   vertical-align: top;
+}
+@media (min-width: 1200px) {
+  #wrapper .page-2 #page-wrapper .carousel {
+    width: 100%;
+  }
 }
 #wrapper .page-2 #page-wrapper .carousel .slick-list,
 #wrapper .page-2 #page-wrapper .carousel .slick-track {
@@ -481,10 +480,11 @@
 }
 #wrapper .page-2 .info .description .title {
   font-family: 'Fjalla One', sans-serif;
-  font-size: 36px;
+  font-size: 30px;
   padding: 0px;
   text-align: left;
   margin-bottom: 15px;
+  text-transform: uppercase;
 }
 #wrapper .page-2 .info .description .text {
   line-height: 1.3em;
@@ -527,91 +527,15 @@
 }
 #wrapper .page-2 .close {
   position: absolute;
-  right: 10px;
+  right: 15px;
   top: 10px;
-  font-size: 32px;
+  font-size: 22px;
   color: #fff;
   cursor: pointer;
 }
 #wrapper .pt-page-current {
   visibility: visible;
   z-index: 1;
-}
-@media only screen and (min-width: 768px) and (max-width: 992px) {
-  .portfolio-grid {
-    margin: 0 50px;
-  }
-  .navbar-title img {
-    height: 90px;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup {
-    height: 100%;
-    top: 0;
-    overflow-y: scroll;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-title {
-    padding: 15px 0;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel {
-    height: 400px;
-    width: 80%;
-    margin: 0 auto;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel .slick-list {
-    height: 100%;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel .slick-list .slick-track {
-    height: 100%;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel .popup-image img {
-    margin: 0 auto;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1200px) {
-  .portfolio-grid {
-    margin: 0 100px;
-  }
-  .navbar-title img {
-    height: 50px;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup {
-    height: 100%;
-    top: 0;
-    overflow-y: scroll;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-title {
-    padding: 15px 0;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel {
-    height: 400px;
-    width: 80%;
-    margin: 0 auto;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel .slick-list {
-    height: 100%;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel .slick-list .slick-track {
-    height: 100%;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .popup-body .popup-carousel .popup-image img {
-    margin: 0 auto;
-  }
-  #wrapper .main-container .popup-overlay .portfolio-popup .close-popup {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 32px;
-    color: #fff;
-    cursor: pointer;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .portfolio-grid {
-    margin: 0 300px;
-  }
-  .navbar-title img {
-    height: 90px;
-  }
 }
 /*
 

@@ -46,7 +46,7 @@ $(".page-1").scroll(function (event) {
 function getRepos() {
     return $.ajax({
         url: "https://api.github.com/users/RBrNx/repos",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token 89335c755f86bfc81acdcfc956e8f668479c1aa6" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token c7e2a7fb2dac6f1dc8c5c712556641d995912ab8" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -63,7 +63,7 @@ function getRepos() {
 function getWebsiteInfoFromRepo(repoName, repoID) {
     return $.ajax({
         url: "https://api.github.com/repos/RBrNx/" + repoName + "/contents/websiteinfo.json",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token 89335c755f86bfc81acdcfc956e8f668479c1aa6" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token c7e2a7fb2dac6f1dc8c5c712556641d995912ab8" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: true,
@@ -101,38 +101,37 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
     imgManager.addImage(imageDrop, infoJSON.imageDrop);
 
     gridItem.click(function (event) {
-        //loadRepoPage(this);
         event.stopPropagation();
-        PageTransitions.nextPage(21);
+        loadRepoPage(this);
     });
 }
 
 function loadRepoPage(portfolioItem) {
-    //var repoID = $(portfolioItem).attr("data-repoid");
+    var repoID = $(portfolioItem).attr("data-repoid");
 
-    //var repos = sessionStorage.getObj("repos");
-    //var currRepo = repos.find(r => r.id == repoID);
-    //var websiteJSON = currRepo.websitejson;
+    var repos = sessionStorage.getObj("repos");
+    var currRepo = repos.find(r => r.id == repoID);
+    var websiteJSON = currRepo.websitejson;
 
-    //$(".portfolio-page #title").text(websiteJSON.title);
-    //$(".portfolio-page #subtitle").text(websiteJSON.description);
+    $(".portfolio-page #title").text(websiteJSON.title);
+    $(".portfolio-page #subtitle").text(websiteJSON.description);
 
-    //$(".portfolio-page .body .info .description .text").html(websiteJSON.aboutProject);
+    $(".portfolio-page .body .info .description .text").html(websiteJSON.aboutProject);
 
-    //$(".portfolio-page .body .info .techSheet .list").empty();
-    //for (var i = 0; i < websiteJSON.techSheet.length; i++) {
-    //    $("<li>" + websiteJSON.techSheet[i] + "</li>").appendTo(".portfolio-page .body .info .techSheet .list");
-    //}
+    $(".portfolio-page .body .info .techSheet .list").empty();
+    for (var i = 0; i < websiteJSON.techSheet.length; i++) {
+        $("<li>" + websiteJSON.techSheet[i] + "</li>").appendTo(".portfolio-page .body .info .techSheet .list");
+    }
 
-    //$(".portfolio-page .body .info .links").empty();
-    //for (var i = 0; i < websiteJSON.links.length; i++) {
-    //    $("<a href='" + websiteJSON.links[i].link + "' target='websiteJSON.links'>" + websiteJSON.links[i].linkText + "<i class='fas fa-external-link-alt'></i></a>").appendTo(".portfolio-page .body .info .links");
-    //}
+    $(".portfolio-page .body .info .links").empty();
+    for (var i = 0; i < websiteJSON.links.length; i++) {
+        $("<a href='" + websiteJSON.links[i].link + "' target='websiteJSON.links'>" + websiteJSON.links[i].linkText + "<i class='fas fa-external-link-alt'></i></a>").appendTo(".portfolio-page .body .info .links");
+    }
 
-    //$(".portfolio-page .body .carousel").empty();
-    //for (var i = 0; i < websiteJSON.carouselImages.length; i++) {
-    //    $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo(".portfolio-page .body .carousel")
-    //}
+    $(".portfolio-page .body .carousel").empty();
+    for (var i = 0; i < websiteJSON.carouselImages.length; i++) {
+        $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo(".portfolio-page .body .carousel")
+    }
 
     animateToSubpage();
 }
@@ -220,20 +219,22 @@ function imageManager(options) {
 }
 
 function animateToSubpage() {
-    //$(".carousel").slick({
-    //    arrows: true,
-    //    swipe: false,
-    //    //infinite: true,
-    //    dots: true,
-    //    speed: 500
-    //});
-    //$(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
+    $(".carousel").slick({
+        arrows: true,
+        swipe: false,
+        //infinite: true,
+        dots: true,
+        speed: 500
+    });
+    $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
+
+    $(".page-2 .close").off().click(animateToHomepage);
 
     PageTransitions.nextPage(21); //Very bad please change
 }
 
 function animateToHomepage() {
-    //$(".carousel").slick("unslick");
+    $(".carousel").slick("unslick");
 
     PageTransitions.nextPage(22);
 }
@@ -248,10 +249,13 @@ $(document).ready(function () {
         }
     });
 
-    //$(".navbar-toggle").click(function () {
-    //    $(".page-1").addClass("animate-left");
-    //    $("#side-menu .close").off().click(function () {
-    //        $(".page-1").removeClass("animate-left");
-    //    });
-    //});
+    $(".navbar-toggle").click(function () {
+        $("#side-menu").css({ "display": "block" });
+        $(".page-1").addClass("animate-left");
+
+        $("#side-menu .close").off().click(function () {
+            $(".page-1").removeClass("animate-left");
+            setTimeout(function () { $("#side-menu").css({ "display": "none" }); }, 350);
+        });
+    });
 });
