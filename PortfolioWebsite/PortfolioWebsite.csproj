@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -94,28 +95,55 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSS\ajax-loader.gif" />
+    <Content Include="CSS\animations.css" />
+    <Content Include="CSS\slick-theme.css" />
+    <Content Include="CSS\slick.css" />
     <Content Include="img\AdventofCode.png" />
+    <Content Include="img\AdventofCode_2.png" />
+    <Content Include="img\aoc2017.PNG" />
+    <Content Include="img\AppleIdentifier.png" />
+    <Content Include="img\AppleIdentifier_2.png" />
+    <Content Include="img\chequeredpos.PNG" />
     <Content Include="img\Chequered_Showcase.png" />
     <Content Include="img\Dual Ring-Small.png" />
     <Content Include="img\EdgeDetection.jpg" />
     <Content Include="img\fireworks.png" />
+    <Content Include="img\fireworks_2.png" />
+    <Content Include="img\Granny-Smith-Sobel.png" />
     <Content Include="img\mathmath.png" />
+    <Content Include="img\mathmathrev.png" />
+    <Content Include="img\mathmathrev_2.png" />
+    <Content Include="img\Pacific-Rose-Sobel.png" />
     <Content Include="img\PortfolioWebsite_2.png" />
+    <Content Include="img\puttered.PNG" />
+    <Content Include="img\puttered_2.png" />
+    <Content Include="img\puttered_3.png" />
     <Content Include="img\Puttered_Showcase.png" />
     <Content Include="img\Redbaron Games Logo 2 - Small.png" />
     <Content Include="img\Redbaron Games Logo.png" />
     <Content Include="img\RedbaronGames-1.png" />
     <Content Include="img\RedbaronGames-2.png" />
     <Content Include="img\Sokoban_Showcase.png" />
+    <Content Include="img\sokogenerator.png" />
+    <Content Include="img\sokogenerator_2.png" />
+    <Content Include="JS\modernizer.custom.js" />
+    <Content Include="JS\PageTransitions.js" />
+    <Content Include="JS\slick.min.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CSS\main.less" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="CSS\fonts\slick.ttf" />
+    <Content Include="CSS\fonts\slick.woff" />
     <None Include="Properties\PublishProfiles\PortfolioWebsite.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -123,6 +151,18 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\fontawesome-all.min.css" />

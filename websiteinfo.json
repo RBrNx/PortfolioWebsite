@@ -1,6 +1,7 @@
 {
   "show": true,
-  "image": "img/PortfolioWebsite_2.png",
+  "imageMain": "img/PortfolioWebsite_2.png",
+  "imageDrop": "img/PortfolioWebsite_2.png",
   "title": "Portfolio Website",
   "description": "Website for showcasing my Portfolio pieces."
 }

@@ -40,7 +40,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/15/2015 03:06:24</publishTime>
     </File>
     <File Include="bin/PortfolioWebsite.dll">
-      <publishTime>05/31/2018 12:20:59</publishTime>
+      <publishTime>06/11/2018 16:16:11</publishTime>
+    </File>
+    <File Include="bin/PortfolioWebsite.pdb">
+      <publishTime>06/08/2018 19:56:19</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 21:19:46</publishTime>
@@ -78,20 +81,53 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
       <publishTime>06/18/2015 21:19:46</publishTime>
     </File>
+    <File Include="CSS/ajax-loader.gif">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="CSS/animations.css">
+      <publishTime>06/11/2018 15:17:20</publishTime>
+    </File>
     <File Include="CSS/fontawesome-all.min.css">
       <publishTime>03/14/2018 10:15:55</publishTime>
     </File>
+    <File Include="CSS/fonts/slick.ttf">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="CSS/fonts/slick.woff">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
     <File Include="CSS/main.css">
-      <publishTime>05/31/2018 12:05:34</publishTime>
+      <publishTime>06/11/2018 15:52:03</publishTime>
     </File>
     <File Include="CSS/main.less">
-      <publishTime>05/31/2018 12:05:41</publishTime>
+      <publishTime>06/11/2018 15:52:02</publishTime>
     </File>
     <File Include="CSS/main.min.css">
-      <publishTime>05/31/2018 12:05:34</publishTime>
+      <publishTime>06/11/2018 15:52:03</publishTime>
+    </File>
+    <File Include="CSS/slick-theme.css">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="CSS/slick.css">
+      <publishTime>06/11/2018 09:05:07</publishTime>
     </File>
     <File Include="img/AdventofCode.PNG">
-      <publishTime>05/29/2018 14:45:58</publishTime>
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/AdventofCode_2.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/aoc2017.PNG">
+      <publishTime>06/11/2018 09:04:20</publishTime>
+    </File>
+    <File Include="img/AppleIdentifier.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/AppleIdentifier_2.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/chequeredpos.PNG">
+      <publishTime>05/29/2018 11:23:18</publishTime>
     </File>
     <File Include="img/Chequered_Showcase.png">
       <publishTime>05/29/2018 14:38:23</publishTime>
@@ -105,11 +141,35 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="img/fireworks.png">
       <publishTime>05/29/2018 11:02:33</publishTime>
     </File>
+    <File Include="img/fireworks_2.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/Granny-Smith-Sobel.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
     <File Include="img/mathmath.png">
       <publishTime>05/29/2018 09:08:01</publishTime>
     </File>
+    <File Include="img/mathmathrev.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/mathmathrev_2.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/Pacific-Rose-Sobel.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
     <File Include="img/PortfolioWebsite_2.png">
       <publishTime>05/29/2018 12:41:40</publishTime>
+    </File>
+    <File Include="img/puttered.PNG">
+      <publishTime>05/29/2018 09:36:21</publishTime>
+    </File>
+    <File Include="img/puttered_2.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="img/puttered_3.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
     </File>
     <File Include="img/Puttered_Showcase.png">
       <publishTime>05/29/2018 14:22:20</publishTime>
@@ -129,23 +189,83 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="img/Sokoban_Showcase.png">
       <publishTime>05/30/2018 16:23:47</publishTime>
     </File>
+    <File Include="img/sokogenerator.png">
+      <publishTime>05/28/2018 10:58:35</publishTime>
+    </File>
+    <File Include="img/sokogenerator_2.png">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
     <File Include="index.html">
-      <publishTime>05/31/2018 12:03:15</publishTime>
+      <publishTime>06/11/2018 16:02:06</publishTime>
     </File>
     <File Include="JS/jquery-3.2.1.min.js">
-      <publishTime>10/11/2017 12:05:53</publishTime>
+      <publishTime>10/11/2017 12:05:54</publishTime>
     </File>
     <File Include="JS/main.js">
-      <publishTime>05/31/2018 14:48:30</publishTime>
+      <publishTime>06/11/2018 16:08:07</publishTime>
+    </File>
+    <File Include="JS/modernizer.custom.js">
+      <publishTime>06/11/2018 15:15:38</publishTime>
+    </File>
+    <File Include="JS/PageTransitions.js">
+      <publishTime>06/11/2018 15:55:07</publishTime>
     </File>
     <File Include="JS/perfect-scrollbar.jquery.js">
-      <publishTime>01/06/2017 09:34:37</publishTime>
+      <publishTime>01/06/2017 09:34:38</publishTime>
+    </File>
+    <File Include="JS/slick.min.js">
+      <publishTime>06/11/2018 09:05:07</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>05/23/2018 15:15:57</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/31/2018 11:40:52</publishTime>
+      <publishTime>06/11/2018 16:16:12</publishTime>
+    </File>
+    <File Include="webfonts/fa-brands-400.eot">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-brands-400.svg">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-brands-400.ttf">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-brands-400.woff">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-brands-400.woff2">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-regular-400.eot">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-regular-400.svg">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-regular-400.ttf">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-regular-400.woff">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-regular-400.woff2">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-solid-900.eot">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-solid-900.svg">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-solid-900.ttf">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-solid-900.woff">
+      <publishTime>06/11/2018 09:05:07</publishTime>
+    </File>
+    <File Include="webfonts/fa-solid-900.woff2">
+      <publishTime>06/11/2018 09:05:07</publishTime>
     </File>
   </ItemGroup>
 </Project>
