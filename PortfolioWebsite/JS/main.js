@@ -47,7 +47,7 @@ $(".pt-page-current").scroll(function (event) {
 function getRepos() {
     return $.ajax({
         url: "https://api.github.com/users/RBrNx/repos",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token x" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token 053e817140e90cee051b7b350f0fe4d28151be75" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -64,7 +64,7 @@ function getRepos() {
 function getWebsiteInfoFromRepo(repoName, repoID) {
     return $.ajax({
         url: "https://api.github.com/repos/RBrNx/" + repoName + "/contents/websiteinfo.json",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token x" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token 053e817140e90cee051b7b350f0fe4d28151be75" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: true,

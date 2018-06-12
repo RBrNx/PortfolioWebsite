@@ -44,7 +44,6 @@ C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioW
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\roslyn\vbc.exe
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\roslyn\VBCSCompiler.exe
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\PortfolioWebsite.dll.config
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\PortfolioWebsite.dll
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\PortfolioWebsite.pdb
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\Microsoft.AI.Agent.Intercept.dll
@@ -61,8 +60,9 @@ C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioW
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\Microsoft.ApplicationInsights.xml
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.csprojAssemblyReference.cache
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.csproj.CoreCompileInputs.cache
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.csproj.CopyComplete
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.dll
 C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.pdb
+C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\bin\PortfolioWebsite.dll.config
+C:\Users\RBrNx\Documents\Visual Studio 2017\Projects\PortfolioWebsite\PortfolioWebsite\obj\Debug\PortfolioWebsite.csprojAssemblyReference.cache
