@@ -47,7 +47,7 @@ $(".pt-page-current").scroll(function (event) {
 function getRepos() {
     return $.ajax({
         url: "https://api.github.com/users/RBrNx/repos",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bdd6f52f4fd7e40a188827fc9c5d5138a8781f78" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token x" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -64,7 +64,7 @@ function getRepos() {
 function getWebsiteInfoFromRepo(repoName, repoID) {
     return $.ajax({
         url: "https://api.github.com/repos/RBrNx/" + repoName + "/contents/websiteinfo.json",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token bdd6f52f4fd7e40a188827fc9c5d5138a8781f78" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token x" },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: true,
@@ -117,21 +117,21 @@ function loadRepoPage(portfolioItem) {
     $(".portfolio-page #title").text(websiteJSON.title);
     $(".portfolio-page #subtitle").text(websiteJSON.description);
 
-    $(".portfolio-page .body .info .description .text").html(websiteJSON.aboutProject);
-
-    $(".portfolio-page .body .info .techSheet .list").empty();
-    for (var i = 0; i < websiteJSON.techSheet.length; i++) {
-        $("<li>" + websiteJSON.techSheet[i] + "</li>").appendTo(".portfolio-page .body .info .techSheet .list");
-    }
-
-    $(".portfolio-page .body .info .links").empty();
-    for (var i = 0; i < websiteJSON.links.length; i++) {
-        $("<a href='" + websiteJSON.links[i].link + "' target='websiteJSON.links'>" + websiteJSON.links[i].linkText + "<i class='fas fa-external-link-alt'></i></a>").appendTo(".portfolio-page .body .info .links");
-    }
-
-    $(".portfolio-page .body .carousel").empty();
+    $(".portfolio-page #page-wrapper .carousel").empty();
     for (var i = 0; i < websiteJSON.carouselImages.length; i++) {
-        $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo(".portfolio-page .body .carousel")
+        $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo(".portfolio-page #page-wrapper .carousel")
+    }
+
+    $(".portfolio-page #page-wrapper .info .description .text").html(websiteJSON.aboutProject);
+
+    $(".portfolio-page #page-wrapper .info .techSheet .list").empty();
+    for (var i = 0; i < websiteJSON.techSheet.length; i++) {
+        $("<li>" + websiteJSON.techSheet[i] + "</li>").appendTo(".portfolio-page #page-wrapper .info .techSheet .list");
+    }
+
+    $(".portfolio-page #page-wrapper .info .links").empty();
+    for (var i = 0; i < websiteJSON.links.length; i++) {
+        $("<a href='" + websiteJSON.links[i].link + "' target='websiteJSON.links'><i class='fas fa-external-link-alt'></i>" + websiteJSON.links[i].linkText + "</a>").appendTo(".portfolio-page #page-wrapper .info .links");
     }
 
     animateToSubpage();
@@ -224,7 +224,7 @@ function animateToSubpage() {
 
     $(".carousel").slick({
         arrows: true,
-        swipe: false,
+        swipe: true,
         //infinite: true,
         dots: true,
         speed: 500
@@ -233,7 +233,6 @@ function animateToSubpage() {
 
     $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
 
-    $(".page-2 .close").off("click").click(animateToHomepage);
     $(".page-1").addClass("pt-page-scaleDown").on("animationend", function () {
         $(".page-1").off("animationend");
         $(".page-1").removeClass("pt-page-current pt-page-scaleDown");
@@ -241,6 +240,8 @@ function animateToSubpage() {
     $(".page-2").addClass("pt-page-scaleUpDown pt-page-delay300").on("animationend", function () {
         $(".page-2").off("animationend");
         $(".page-2").removeClass("pt-page-scaleUpDown pt-page-delay300");
+
+        $(".portfolio-home").css({ "transform": "translateX(0)" }).click(animateToHomepage);
 
         lastScrollTop = 0;
         $(".pt-page-current").off("scroll").scroll(function (event) {
@@ -254,19 +255,20 @@ function animateToSubpage() {
             lastScrollTop = st;
         });
     });
-    //PageTransitions.nextPage(21); //Very bad please change
 }
 
 function animateToHomepage() {
     $(".page-1").addClass("pt-page-current");
 
-    $(".carousel").slick("unslick");
-
     $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+
+    $(".portfolio-home").css({ "transform": "translateX(100px)" }).off("click");
 
     $(".page-2").addClass("pt-page-scaleDownUp").on("animationend", function () {
         $(".page-2").off("animationend");
         $(".page-2").removeClass("pt-page-current pt-page-scaleDownUp");
+
+        $(".carousel").slick("unslick");
     });
     $(".page-1").addClass("pt-page-scaleUp pt-page-delay300").on("animationend", function () {
         $(".page-1").off("animationend");
