@@ -128,8 +128,7 @@
     <Content Include="img\Sokoban_Showcase.png" />
     <Content Include="img\sokogenerator.png" />
     <Content Include="img\sokogenerator_2.png" />
-    <Content Include="JS\modernizer.custom.js" />
-    <Content Include="JS\PageTransitions.js" />
+    <Content Include="JS\isInViewport.js" />
     <Content Include="JS\slick.min.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
