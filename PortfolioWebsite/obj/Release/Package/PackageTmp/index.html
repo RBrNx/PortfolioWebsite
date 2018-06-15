@@ -4,7 +4,7 @@
     <title>RedBaron Games</title>
 	<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto:400,900" rel="stylesheet">
     <link href="CSS/fontawesome-all.min.css" rel="stylesheet"/>
     <link href="CSS/slick.css" rel="stylesheet"/>
     <link href="CSS/slick-theme.css" rel="stylesheet" />
@@ -13,7 +13,24 @@
 </head>
 <body>
     <div class="loading-overlay">
-        <img src="img/Dual Ring-Small.png" />
+        <ul class="timeline">
+            <li class="step">
+                <span class="circle circle-flash-1"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-2"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-3"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-4"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-5"></span>
+            </li>
+        </ul>
+        <div class="circle circle-main"></div>
     </div>
     <div id="wrapper">
         <header id="header">
@@ -40,6 +57,7 @@
             <div class="menu-item">CV</div>
         </div>
         <div class="portfolio-home"><i class="fas fa-th-large"></i></div>
+        <div id="viewport-tolerance"></div>
         <div class="pt-page page-1 pt-page-current">
             <div class="main-container">
                 <div class="title-container">
@@ -48,7 +66,7 @@
                         <div class="title-right">CONOR WATSON.</div>
                     </div>
                     <div class="subtitle">
-                        Hey! I am a Full Stack Web Developer based in the West of Scotland.
+                        Full Stack Web Developer with a passion for creating sleek Web Applications, with features that could rival a Bond gadget.
                     </div>
                 </div>
                 <div class="portfolio-grid">
@@ -59,7 +77,7 @@
             <footer id="footer">
                 <div class="footer-info">
                     Conor Watson<br />
-                    Software Developer<br />
+                    Full Stack Web Developer<br />
                     Glasgow, Scotland<br />
                     conor.watson94@gmail.com<br />
                 </div>
@@ -114,10 +132,10 @@
         </div>
     </div>
     <script src="JS/jquery-3.2.1.min.js"></script>
+    <script src="JS/jquery.color-212.min.js"></script>
     <script src="JS/perfect-scrollbar.jquery.js"></script>
     <script src="JS/slick.min.js"></script>
-    <script src="JS/modernizer.custom.js"></script>
-    <script src="JS/PageTransitions.js"></script>
+    <script src="JS/isInViewport.js"></script>
     <script src="JS/main.js"></script>
 </body>
 </html>

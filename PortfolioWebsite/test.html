@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <style>
+        .body{
+            background-color: #292929;
+            color: #eee;
+            font-family: Consolas,monaco,monospace; 
+        }
+        .blue{
+            color: #6987AB;
+        }
+        .green{
+            color: #72A095;
+        }
+        .orange{
+            color: #AC8579;
+        }
+        .yellow{
+            color: #99A08B;
+        }
+
+        .body{
+            background-color: #303030;
+            color: #E8F3F6;
+            font-family: Consolas,monaco,monospace; 
+        }
+        .blue{
+            color: #5EAFF2;
+        }
+        .green{
+            color: #B2E666;
+        }
+        .orange{
+            color: #CA543A;
+        }
+        .yellow{
+            color: #E5786D;
+        }
+
+        p{
+            margin: 0;
+            -webkit-margin-before: 0;
+            -webkit-margin-after: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <p><span class="blue">namespace</span> Website</p>
+        <p>{</p>
+        <p>&emsp;<span class="blue">public Class</span> <span class="green">WebDeveloper</span></p>
+        <p>&emsp;{</p>
+        <p>&emsp;&emsp;<span class="blue">public string</span> Name { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
+        <p>&emsp;&emsp;<span class="blue">public int</span> Age { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
+        <p>&emsp;&emsp;<span class="blue">public int</span> YearsExperience { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
+        <p>&emsp;&emsp;<span class="blue">public</span> <span class="green">List</span>&lt;<span class="blue">string</span>&gt; Languages { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
+        <p>&emsp;&emsp;<span class="blue">public String</span> Notes { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
+        <p>&emsp;}</p>
+        <p></p>
+        <p>&emsp;<span class="blue">class</span> <span class="green">WebsiteIntro</span></p>
+        <p>&emsp;{</p>
+        <p>&emsp;&emsp;<span class="blue">static void</span> Main(<span class="blue">string</span>[] args)</p>
+        <p>&emsp;&emsp;{</p>
+        <p>&emsp;&emsp;&emsp;<span class="green">WebDeveloper</span> David = <span class="blue">new</span> <span class="green">WebDeveloper</span></p>
+        <p>&emsp;&emsp;&emsp;{</p>
+        <p id="example"></p>
+        <p>&emsp;&emsp;&emsp;};</p>
+        <p>&emsp;&emsp;};</p>
+        <p>&emsp;};</p>
+        <p>}</p>
+    </div>
+    <script src="JS/typeit.js"></script>
+    <script>
+        new TypeIt('#example', {
+            speed: 100,
+            html: true,
+            strings: [
+                '&emsp;&emsp;&emsp;&emsp;Name = <span class="orange">"David Mimnagh"</span>,',
+                '&emsp;&emsp;&emsp;&emsp;Age = <span class="yellow">24</span>,',
+                '&emsp;&emsp;&emsp;&emsp;YearsExperience = <span class="yellow">2</span>,',
+                '&emsp;&emsp;&emsp;&emsp;Languages = <span class="blue">new String</span>[] { <span class="orange">"C#"</span>, <span class="orange">"Javscript"</span>, <span class="orange">"SQL"</span>, <span class="orange">"LINQ"</span>, <span class="orange">"HTML"</span>, <span class="orange">"CSS"</span>, <span class="orange">"C++"</span>, <span class="orange">"Java"</span> }.ToList(),',
+                '&emsp;&emsp;&emsp;&emsp;Notes = <span class="orange">@"Hi, I\'m David a .NET developer based in Glasgow....</span>',
+                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">I gratuated from the University of the West of Scotland with a 2:1 Honours Degree, in Computer Games Technology.</span>',
+                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">I use C#, Javascript, SQL, LINQ, Html, and CSS on a daily basis. I also have experience with C++ and Java from university.</span>',
+                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">In my spare time I enjoy creating my own programs, watching football, doing puzzles, and playing games.</span>',
+                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">For any queries or questions you have, please, feel free to contact me."</span>',
+            ]
+        });
+    </script>
+</body>
+</html>

@@ -32,11 +32,12 @@ $.fn.copyAllAttributes = function (sourceElement) {
 var repositories = [];
 var imgManager = new imageManager({ "onEmpty": imageManagerOnEmpty });
 var lastScrollTop = 0;
+var pageLoaded = false;
 
 function setPageScroll(scrollTop) {
     if (scrollTop) lastScrollTop = scrollTop;
 
-    $(".pt-page-current").scroll(function (event) {
+    $(".pt-page-current").off("scroll").scroll(function (event) {
         var st = $(this).scrollTop();
 
         if (st > lastScrollTop) {
@@ -45,16 +46,13 @@ function setPageScroll(scrollTop) {
             $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
         }
         lastScrollTop = st;
-
-        //$(".grid-item").removeClass("inViewport")
-        //$(".grid-item").isInViewport({ tolerance: 100, viewport: $("#viewport-tolerance") }).addClass("inViewport");
     });
 }
 
 function getRepos() {
     return $.ajax({
         url: "https://api.github.com/users/RBrNx/repos",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token 29c51fd68b37d7b76866ef6bb7ab6538d3b7d9c7" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token " + sessionStorage.getItem("token") },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -71,7 +69,7 @@ function getRepos() {
 function getWebsiteInfoFromRepo(repoName, repoID) {
     return $.ajax({
         url: "https://api.github.com/repos/RBrNx/" + repoName + "/contents/websiteinfo.json",
-        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token 29c51fd68b37d7b76866ef6bb7ab6538d3b7d9c7" },
+        headers: { "Accept": "application/vnd.github.v3+json", "Authorization": "token " + sessionStorage.getItem("token") },
         type: "GET",
         contentType: "application/json; charset=utf-8",
         cache: true,
@@ -173,14 +171,74 @@ function b64DecodeUnicode(str) {
 
 function imageManagerOnEmpty() {
     sortPortfolio();
-    hideOverlay();
+    //hideOverlay();
+    pageLoaded = true;
 }
 
+function animateBond() {
+    var width = $(".timeline").width();
+    var circlesToFlash = $(".circle").not(".circle-main");
+    var currCircle = 0;
+
+    $(".circle-main").animate({
+        left: (width + 50) + "px"
+    }, {
+        duration: 5000,
+        easing: "linear",
+        step: function () {
+            var currLeft = $(".circle-main").position().left;
+            var targetLeft = 0;
+
+            if (circlesToFlash.eq(currCircle).length) {
+                targetLeft = circlesToFlash.eq(currCircle).offset().left;
+
+                if (currLeft >= targetLeft) {
+
+                    if (currCircle == 4 && pageLoaded) {
+                        $(".circle-main").stop();
+                        $(".circle-main").addClass("scale-mid");
+
+                        setTimeout(function () {
+                            var left = (width / 2);
+                            left -= left * 0.075;
+
+                            $(".circle-main").animate({
+                                left: left + "px"
+                            }, 2000, "linear", function () {
+                                $(".circle-main").removeClass("scale-mid").addClass("scale-max");
+                                $(".loading-overlay").css("opacity", "0");
+                                setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
+                                $(".portfolio-grid").addClass("fadeInUp");
+                                $("#header, .title-container").addClass("fadeInDown");
+                            });
+                        }, 1000)
+                        
+                        
+                    }
+                    else {
+                        circlesToFlash.eq(currCircle).css("background", "white");
+                        circlesToFlash.eq(currCircle).animate({ backgroundColor: 'rgba(255,255,255,0)' }, 1000);
+                        currCircle++;
+                    }
+
+                }
+            }
+        },
+        complete: function () {
+            if (!pageLoaded || !$(".circle-main").hasClass("scale-mid")) {
+                $(".circle-main").css("left", "-50px");
+                animateBond();
+            }
+        }
+    });
+}
+animateBond();
+//$(".loading-overlay").hide();
+//$(".portfolio-grid").css("opacity", "1");
+
 function hideOverlay() {
-    $(".loading-overlay").css({ "opacity": "0" });
-    setTimeout(function () { $(".loading-overlay").hide(); }, 510);
-    $(".portfolio-grid").addClass("fadeInUp");
-    $("#header, .title-container").addClass("fadeInDown");
+    //$(".loading-overlay").css({ "opacity": "0" });
+    //setTimeout(function () { $(".loading-overlay").hide(); }, 510);
 }
 
 function sortPortfolio() {
@@ -304,13 +362,17 @@ function animateToHomepage() {
 }
 
 $(document).ready(function () {
-    $.when(getRepos()).done(function () {
-        var repos = sessionStorage.getObj("repos");
+    $.getJSON("github.json", function (data) {
+        sessionStorage.setItem("token", data.token);
 
-        for (var i = 0; i < repos.length; i++) {
-            repositories.push(repos[i].name);
-            getWebsiteInfoFromRepo(repos[i].name, repos[i].id);
-        }
+        $.when(getRepos()).done(function () {
+            var repos = sessionStorage.getObj("repos");
+
+            for (var i = 0; i < repos.length; i++) {
+                repositories.push(repos[i].name);
+                getWebsiteInfoFromRepo(repos[i].name, repos[i].id);
+            }
+        });
     });
 
     setPageScroll();

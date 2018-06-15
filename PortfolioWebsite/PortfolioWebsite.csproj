@@ -128,13 +128,15 @@
     <Content Include="img\Sokoban_Showcase.png" />
     <Content Include="img\sokogenerator.png" />
     <Content Include="img\sokogenerator_2.png" />
-    <Content Include="JS\isInViewport.js" />
+    <Content Include="JS\jquery.color-212.min.js" />
     <Content Include="JS\slick.min.js" />
+    <Content Include="JS\typeit.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CSS\main.less" />
+    <Content Include="test.html" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
@@ -144,6 +146,7 @@
     </None>
     <Content Include="CSS\fonts\slick.ttf" />
     <Content Include="CSS\fonts\slick.woff" />
+    <Content Include="github.json" />
     <None Include="Properties\PublishProfiles\PortfolioWebsite.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -4,7 +4,7 @@
     <title>RedBaron Games</title>
 	<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto:400,900" rel="stylesheet">
     <link href="CSS/fontawesome-all.min.css" rel="stylesheet"/>
     <link href="CSS/slick.css" rel="stylesheet"/>
     <link href="CSS/slick-theme.css" rel="stylesheet" />
@@ -13,7 +13,24 @@
 </head>
 <body>
     <div class="loading-overlay">
-        <img src="img/Dual Ring-Small.png" />
+        <ul class="timeline">
+            <li class="step">
+                <span class="circle circle-flash-1"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-2"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-3"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-4"></span>
+            </li>
+            <li class="step">
+                <span class="circle circle-flash-5"></span>
+            </li>
+        </ul>
+        <div class="circle circle-main"></div>
     </div>
     <div id="wrapper">
         <header id="header">
@@ -115,6 +132,7 @@
         </div>
     </div>
     <script src="JS/jquery-3.2.1.min.js"></script>
+    <script src="JS/jquery.color-212.min.js"></script>
     <script src="JS/perfect-scrollbar.jquery.js"></script>
     <script src="JS/slick.min.js"></script>
     <script src="JS/isInViewport.js"></script>
