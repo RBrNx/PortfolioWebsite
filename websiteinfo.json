@@ -8,6 +8,6 @@
   "aboutProject": "<p>The aim of this project was to create a showcase of everything that I have worked on in recent times. I wanted to create a website that simple to navigate, yet beautiful and engaging, using all my experience and knowledge of web technologies that I have amassed over the past few years.</p><p>The website is made up of a basic HTML template, with <strong>jQuery</strong> doing some of the heavy lifting and some magical <strong>CSS</strong> sprinkled throughout. All of my projects that appear on this website are dynamically loaded using my <strong>Github Profile</strong>, and a JSON file that is stored within each of my repositories, allowing for future projects to be added effortlessly.</p>",
   "techSheet": [ "UI/UX Design", "UI/UX Animations", "Responsive Web Design", "HTML5", "CSS3 - Preprocessed with LESS", "jQuery", "Github API" ],
   "links": [ 
-    { "linkText": "Portfolio Website (Github)", "link": "https://github.com/RBrNx/PortfolioWebsite" }
+    { "linkText": "Portfolio Website", "link": "https://github.com/RBrNx/PortfolioWebsite", "linkType": "github" }
   ]
 }
