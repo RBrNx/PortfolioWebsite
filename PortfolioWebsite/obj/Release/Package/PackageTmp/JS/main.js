@@ -232,6 +232,9 @@ function animateBond() {
         }
     });
 }
+animateBond();
+//$(".loading-overlay").hide();
+//$(".portfolio-grid").css("opacity", "1");
 
 function hideOverlay() {
     //$(".loading-overlay").css({ "opacity": "0" });
@@ -389,5 +392,3 @@ $(document).ready(function () {
         $("#side-menu .close, .page-1").click(closeSidebar);
     });
 });
-
-animateBond();

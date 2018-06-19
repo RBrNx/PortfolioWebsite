@@ -59,12 +59,32 @@ body {
   opacity: 1;
   transition: all linear .5s .75s;
 }
+.loading-overlay.circle-intro {
+  width: 250px;
+  height: 250px;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 0 99999px #2a2a2a;
+  transition: none;
+}
+@media (min-width: 1200px) {
+  .loading-overlay.circle-intro {
+    width: 650px;
+    height: 650px;
+  }
+}
+.loading-overlay.circle-intro .circle-main {
+  display: none;
+}
 .loading-overlay .circle {
   background: white;
   border-radius: 50%;
-  height: 50px;
+  height: 100%;
   position: absolute;
-  width: 50px;
+  width: 100%;
 }
 .loading-overlay .circle-main {
   position: absolute;
@@ -82,6 +102,19 @@ body {
 .loading-overlay .circle-main.scale-max {
   transform: translateY(-50%) translateX(-50%) scale(1);
 }
+@media (min-width: 1200px) {
+  .loading-overlay .circle-main {
+    transform: translateY(-50%) scale(0.1);
+    height: 2000px;
+    width: 2000px;
+  }
+  .loading-overlay .circle-main.scale-mid {
+    transform: translateY(-50%) translateX(-17.5%) scale(0.325);
+  }
+  .loading-overlay .circle-main.scale-max {
+    transform: translateY(-50%) translateX(-50%) scale(1);
+  }
+}
 .loading-overlay .timeline {
   display: flex;
   align-items: center;
@@ -93,25 +126,6 @@ body {
   transform: translateY(-50%);
   width: 100%;
   padding-left: 0px;
-  /*.circle-flash-1 {
-            animation: circle-flash 1s 0.8s;
-        }
-
-        .circle-flash-2 {
-            animation: circle-flash 1s 1.4s;
-        }
-
-        .circle-flash-3 {
-            animation: circle-flash 1s 2s;
-        }
-
-        .circle-flash-4 {
-            animation: circle-flash 1s 2.6s;
-        }
-
-        .circle-flash-5 {
-            animation: circle-flash 1s 3.2s;
-        }*/
 }
 .loading-overlay .timeline .step {
   display: block;
@@ -120,6 +134,12 @@ body {
   margin: 0;
   position: relative;
   width: 50px;
+}
+@media (min-width: 1200px) {
+  .loading-overlay .timeline .step {
+    width: 200px;
+    height: 200px;
+  }
 }
 .loading-overlay .timeline .circle {
   background: transparent;
@@ -351,6 +371,18 @@ body {
   transform: translateX(100px);
   transition: transform 0.25s ease-out;
 }
+#wrapper .portfolio-home.show {
+  transform: translateX(0);
+}
+@media (min-width: 1200px) {
+  #wrapper .portfolio-home {
+    top: 200px;
+    left: 100px;
+    bottom: 0;
+    right: 0;
+    transform: translateX(-175px);
+  }
+}
 #wrapper .portfolio-home .fa-th-large {
   position: relative;
   top: 50%;
@@ -424,6 +456,8 @@ body {
 #wrapper .page-1 .main-container .title-container {
   margin: 130px 10% 30px 10%;
   text-align: center;
+  opacity: 0;
+  transform: translateY(-75px);
 }
 @media (min-width: 1200px) {
   #wrapper .page-1 .main-container .title-container {
@@ -558,6 +592,29 @@ body {
   transform: translateY(0);
   width: 100%;
 }
+@media (min-width: 1200px) {
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-left .grid-item:hover:after,
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-right .grid-item:hover:after {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-left .grid-item:hover .captions .title-caption,
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-right .grid-item:hover .captions .title-caption {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-left .grid-item:hover .captions .caption-button,
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-right .grid-item:hover .captions .caption-button {
+    opacity: 1;
+    transform: translate3d(calc(-50.5%), 0, 0);
+  }
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-left .grid-item:hover .imageDrop,
+  #wrapper .page-1 .main-container .portfolio-grid .grid-container-right .grid-item:hover .imageDrop {
+    opacity: 1;
+    transform: translateY(0);
+    width: 100%;
+  }
+}
 #wrapper .page-1 .main-container .portfolio-grid .grid-container-left .grid-item .imageMain,
 #wrapper .page-1 .main-container .portfolio-grid .grid-container-right .grid-item .imageMain {
   height: 100%;
@@ -677,7 +734,8 @@ body {
 }
 @media (min-width: 1200px) {
   #wrapper .page-2 #page-wrapper {
-    max-width: 800px;
+    padding-top: 120px;
+    max-width: 1010px;
   }
 }
 #wrapper .page-2 #page-wrapper #title {
@@ -695,7 +753,7 @@ body {
 #wrapper .page-2 #page-wrapper .carousel {
   width: 100%;
   margin: 50px 0px;
-  height: 400px;
+  height: 500px;
   display: inline-block;
   vertical-align: top;
 }
@@ -787,6 +845,44 @@ body {
   line-height: 1.3em;
   color: #8a8a8a;
 }
+#wrapper .page-2 .info .description .text .fancyLink {
+  position: relative;
+}
+#wrapper .page-2 .info .description .text .fancyLink:hover:before,
+#wrapper .page-2 .info .description .text .fancyLink:hover:after {
+  width: 100%;
+}
+#wrapper .page-2 .info .description .text .fancyLink a {
+  color: #cacaca;
+  text-decoration: none;
+  font-weight: 900;
+  position: relative;
+  z-index: 2;
+}
+#wrapper .page-2 .info .description .text .fancyLink:before {
+  content: "";
+  display: block;
+  height: 50%;
+  background-color: #565555;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 0%;
+  transition: width 0.325s cubic-bezier(0.65, 0.2, 0, 1);
+}
+#wrapper .page-2 .info .description .text .fancyLink:after {
+  content: "";
+  display: block;
+  height: 50%;
+  background-color: #565555;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  width: 0%;
+  transition: width 0.325s cubic-bezier(0.65, 0.2, 0, 1);
+}
 #wrapper .page-2 .info .techSheet .title {
   font-family: 'Fjalla One', sans-serif;
   font-size: 38px;
@@ -868,9 +964,9 @@ body {
   }
 }
 .fadeInUp {
-  -webkit-animation: fadeInUp .75s ease;
-  animation: fadeInUp .75s ease;
-  animation-delay: .85s;
+  -webkit-animation: fadeInUp 1s ease;
+  animation: fadeInUp 1s ease;
+  animation-delay: 0s;
   animation-fill-mode: forwards;
 }
 @keyframes fadeInDown {
@@ -886,8 +982,9 @@ body {
   }
 }
 .fadeInDown {
-  -webkit-animation: fadeInDown 0.75s ease-in;
-  animation: fadeInDown 1.05s ease-in;
+  -webkit-animation: fadeInDown 1s ease;
+  animation: fadeInDown 1s ease;
+  animation-fill-mode: forwards;
 }
 .pt-page-delay300 {
   -webkit-animation-delay: .3s;

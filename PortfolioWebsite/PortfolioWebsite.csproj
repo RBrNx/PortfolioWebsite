@@ -175,7 +175,7 @@
     <Content Include="CSS\main.min.css">
       <DependentUpon>main.css</DependentUpon>
     </Content>
-    <Content Include="index.html" />
+    <Content Include="Portfolio.html" />
     <Content Include="JS\jquery-3.2.1.min.js" />
     <Content Include="JS\main.js" />
     <Content Include="JS\perfect-scrollbar.jquery.js" />

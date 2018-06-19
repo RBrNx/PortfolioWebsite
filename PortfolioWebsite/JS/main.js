@@ -96,9 +96,7 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
 
     var column = $(".grid-container-left");
 
-    var gridItem = $("<div class='grid-item' data-repoid='" + repoID + "'></div>").appendTo(column);
-    //var title = $("<div class='title'>" + infoJSON.title + "</div>").appendTo(gridItem);
-    //var body = $("<div class='body'></div>").appendTo(gridItem);
+    var gridItem = $("<div class='grid-item' data-repoid='" + repoID + "' data-pagename='" + infoJSON.title.replace(/ /g, "-") + "'></div>").appendTo(column);
     var imageMain = $("<img class='imageMain' src='" + infoJSON.imageMain + "'/>").appendTo(gridItem);
     var imageDrop = $("<img class='imageDrop' src='" + infoJSON.imageDrop + "'/>").appendTo(gridItem);
     var captionContainer = $("<div class='captions'></div>").appendTo(gridItem);
@@ -108,6 +106,16 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
 
     imgManager.addImage(imageMain, infoJSON.imageMain);
     imgManager.addImage(imageDrop, infoJSON.imageDrop);
+
+    function gridItemOnClick(){
+        var gridItem = $(this).parents(".grid-item");
+        var pagename = gridItem.attr("data-pagename");
+
+        loadRepoPage(gridItem);
+
+        var currURL = window.location.href;
+        history.pushState(pagename, null, currURL + "#" + pagename);
+    }
 
     gridItem.click(function (event) {
         event.stopPropagation();
@@ -120,9 +128,7 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
         item.addClass("clicked");
         setTimeout(function () { item.addClass("finishedEnter") }, 900);
 
-        item.find(".caption-button").off().click(function () {
-            loadRepoPage($(this).parents(".grid-item"));
-        })
+        item.find(".captions, .caption-button").off().click(gridItemOnClick);
 
         $(".main-container").off("click").click(function () {
             var item = $(".grid-item.clicked");
@@ -130,6 +136,8 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
             setTimeout(function () { item.removeClass("finishedEnter") }, 900);
         });
     });
+
+    gridItem.find(".captions").click(gridItemOnClick);
 }
 
 function loadRepoPage(portfolioItem) {
@@ -156,8 +164,32 @@ function loadRepoPage(portfolioItem) {
 
     $(".portfolio-page #page-wrapper .info .links").empty();
     for (var i = 0; i < websiteJSON.links.length; i++) {
-        $("<a href='" + websiteJSON.links[i].link + "' target='websiteJSON.links'><i class='fas fa-external-link-alt'></i>" + websiteJSON.links[i].linkText + "</a>").appendTo(".portfolio-page #page-wrapper .info .links");
+        var linkIcon = null;
+
+        switch (websiteJSON.links[i].linkType) {
+            case "github":
+                linkIcon = '<i class="fab fa-github"></i>';
+                break;
+            case "youtube":
+                linkIcon = '<i class="fab fa-youtube"></i>';
+                break;
+            case "external":
+            default:
+                linkIcon = '<i class="fas fa-external-link-alt"></i>';
+                break;
+        }
+
+        var link = $("<a href='" + websiteJSON.links[i].link + "' target='_blank'>" + websiteJSON.links[i].linkText + "</a>").appendTo(".portfolio-page #page-wrapper .info .links");
+        $(linkIcon).prependTo(link);
     }
+
+    setTimeout(function () {
+        $(".portfolio-home").addClass("show").click(function () {
+            animateToHomepage();
+            history.pushState("Portfolio", null, "Portfolio");
+            $(this).removeClass("show").off("click");
+        });
+    }, 800);
 
     animateToSubpage();
 }
@@ -199,17 +231,37 @@ function animateBond() {
                         $(".circle-main").addClass("scale-mid");
 
                         setTimeout(function () {
-                            var left = (width / 2);
-                            left -= left * 0.075;
+                            var currTransform = $(".circle-main").css('transform').split(/[()]/)[1];
+                            var TransX = parseFloat(currTransform.split(',')[4]);
+
+                            var pos = ($(".loading-overlay").width() / 2) - ($(".circle-main")[0].getBoundingClientRect().width / 2) - TransX;
 
                             $(".circle-main").animate({
-                                left: left + "px"
-                            }, 2000, "linear", function () {
-                                $(".circle-main").removeClass("scale-mid").addClass("scale-max");
-                                $(".loading-overlay").css("opacity", "0");
-                                setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
-                                $(".portfolio-grid").addClass("fadeInUp");
-                                $("#header, .title-container").addClass("fadeInDown");
+                                left: pos + "px"
+                            }, 1500, "linear", function () {
+                                
+                                setTimeout(function () {
+                                    onLoadComplete();
+                                }, 100);
+
+                                $(".loading-overlay").addClass("circle-intro");
+
+                                $(".loading-overlay").animate({
+                                    backgroundColor: "rgba(255,255,255,0)"
+                                }, 1250, "linear");
+
+                                setTimeout(function () {
+                                    var realCircleSize = $(".circle-main").width();
+
+                                    $(".loading-overlay").animate({
+                                        width: realCircleSize + (realCircleSize / 2),
+                                        height: realCircleSize + (realCircleSize / 2)
+                                    }, {
+                                        duration: 750,
+                                        queue: false,
+                                        easing: "linear"
+                                    });
+                                }, 750);
                             });
                         }, 1000)
                         
@@ -236,9 +288,25 @@ animateBond();
 //$(".loading-overlay").hide();
 //$(".portfolio-grid").css("opacity", "1");
 
-function hideOverlay() {
-    //$(".loading-overlay").css({ "opacity": "0" });
-    //setTimeout(function () { $(".loading-overlay").hide(); }, 510);
+function onLoadComplete() {
+    var urlPath = window.location.pathname;
+    var urlHash = window.location.hash.replace("#", "");
+
+    //$(".circle-main").removeClass("scale-mid").addClass("scale-max");
+    //$(".loading-overlay").css("opacity", "0");
+    setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
+    $(".portfolio-grid").addClass("fadeInUp");
+    $(".title-container").addClass("fadeInDown");
+
+    if (urlHash != "") {
+        if (urlPath.startsWith("/Portfolio")) {
+            var portfolioItem = $(".grid-item[data-pagename='" + urlHash + "']");
+            loadRepoPage(portfolioItem);
+        }
+    }
+    else {
+
+    }
 }
 
 function sortPortfolio() {
@@ -332,8 +400,6 @@ function animateToSubpage() {
         $(".page-2").off("animationend");
         $(".page-2").removeClass("pt-page-scaleUpDown pt-page-delay300");
 
-        $(".portfolio-home").css({ "transform": "translateX(0)" }).click(animateToHomepage);
-
         setPageScroll(0);
     });
 }
@@ -342,8 +408,6 @@ function animateToHomepage() {
     $(".page-1").addClass("pt-page-current");
 
     $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-
-    $(".portfolio-home").css({ "transform": "translateX(100px)" }).off("click");
 
     $(".carousel").css({ "height": "400px" });
 
@@ -373,6 +437,13 @@ $(document).ready(function () {
                 getWebsiteInfoFromRepo(repos[i].name, repos[i].id);
             }
         });
+    });
+
+    window.addEventListener('popstate', function (e) {
+        // e.state is equal to the data-attribute of the last image we clicked
+        if (e.state == null || e.state == "Portfolio") {
+            animateToHomepage();
+        }
     });
 
     setPageScroll();
