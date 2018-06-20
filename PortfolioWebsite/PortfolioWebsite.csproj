@@ -95,6 +95,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="blogs\Logging1.html" />
+    <Content Include="blogs\Logging2.html" />
     <Content Include="CSS\ajax-loader.gif" />
     <Content Include="CSS\animations.css" />
     <Content Include="CSS\blog.css">
@@ -146,6 +148,7 @@
     <Content Include="img\Sokoban_Showcase.png" />
     <Content Include="img\sokogenerator.png" />
     <Content Include="img\sokogenerator_2.png" />
+    <Content Include="JS\blog.js" />
     <Content Include="JS\jquery.color-212.min.js" />
     <Content Include="JS\slick.min.js" />
     <Content Include="JS\typeit.js" />
@@ -158,6 +161,7 @@
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
+    <Content Include="blogs\blogs.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

@@ -33,16 +33,16 @@
         </ul>
         <div class="circle circle-main"></div>
     </div>
-    <div id="portfolio" class="main-page-1 page-current">
+    <div id="website-container">
         <header id="header">
             <nav class="navbar">
                 <div class="navbar-title">
                     <a href="Portfolio.html"><img src="img/Redbaron Games Logo 2 - Small.png" /></a>
                 </div>
                 <div class="navbar-items">
-                    <div class="nav-item active">Portfolio</div>
-                    <div class="nav-item">About</div>
-                    <div class="nav-item">Blog</div>
+                    <div class="nav-item active" data-page="#portfolio">Portfolio</div>
+                    <div class="nav-item" data-page="#about">About</div>
+                    <div class="nav-item" data-page="#blog">Blog</div>
                     <div class="nav-item">CV</div>
                 </div>
                 <div class="navbar-toggle">
@@ -52,98 +52,111 @@
         </header>
         <div id="side-menu">
             <span class="close"><i class="fas fa-times"></i></span>
-            <div class="menu-item active">Portfolio</div>
-            <div class="menu-item">About</div>
-            <div class="menu-item">Blog</div>
+            <div class="menu-item active" data-page="#portfolio">Portfolio</div>
+            <div class="menu-item" data-page="#about">About</div>
+            <div class="menu-item" data-page="#blog">Blog</div>
             <div class="menu-item">CV</div>
         </div>
-        <div class="portfolio-home"><i class="fas fa-th-large"></i></div>
-        <div class="sub-page-1 page-current" id="portfolio-grid-page">
-            <div class="main-container">
-                <div class="title-container">
-                    <div class="title">
-                        <div class="title-left">WATSON.</div>
-                        <div class="title-right">CONOR WATSON.</div>
+
+        <div id="portfolio" class="main-page page-current">
+            <div class="portfolio-home"><i class="fas fa-th-large"></i></div>
+            <div class="sub-page page-current" id="portfolio-grid-page">
+                <div class="main-container">
+                    <div class="title-container">
+                        <div class="title">
+                            <div class="title-left">WATSON.</div>
+                            <div class="title-right">CONOR WATSON.</div>
+                        </div>
+                        <div class="subtitle">
+                            Full Stack Web Developer with a passion for creating sleek Web Applications, with features that could rival a Bond gadget.
+                        </div>
                     </div>
-                    <div class="subtitle">
-                        Full Stack Web Developer with a passion for creating sleek Web Applications, with features that could rival a Bond gadget.
+                    <div class="portfolio-grid">
+                        <div class="grid-container-left"></div>
+                        <div class="grid-container-right"></div>
                     </div>
                 </div>
-                <div class="portfolio-grid">
-                    <div class="grid-container-left"></div>
+                <footer id="footer">
+                    <div class="footer-info">
+                        Conor Watson<br />
+                        Full Stack Web Developer<br />
+                        Glasgow, Scotland<br />
+                        conor.watson94@gmail.com<br />
+                    </div>
+                    <div class="icons"></div>
+                </footer>
+            </div>
+            <div class="sub-page" id="portfolio-item-page">
+                <span class="close"><i class="fas fa-times"></i></span>
+                <div id="page-wrapper">
+                    <div id="title">Popup Title</div>
+                    <div id="subtitle"></div>
+                    <div class="carousel">
+                        <div class="image">
+                            <img src="img/AdventofCode.png" />
+                        </div>
+                        <div class="image">
+                            <img src="img/Chequered_Showcase.png" />
+                        </div>
+                        <div class="image">
+                            <img src="img/EdgeDetection.jpg" />
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="description">
+                            <div class="title">About this Project</div>
+                            <hr />
+                            <div class="text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in risus velit. Mauris aliquet dui vestibulum dolor gravida, aliquam vehicula arcu malesuada. Quisque pellentesque vel tortor in sagittis. Proin dapibus mauris enim, nec mattis sapien ullamcorper ac. Curabitur cursus, nibh at placerat vestibulum, diam elit euismod quam, dapibus congue urna metus quis nulla. Cras semper mi ut magna rhoncus, a efficitur est sodales. Curabitur aliquet, mauris in tempus feugiat, ante ante finibus est, et finibus turpis lacus vel nisl. Integer lacinia nibh sit amet ex mattis, et consectetur nunc mollis. Curabitur nec libero eu leo pellentesque semper. Quisque scelerisque justo volutpat mauris lacinia tempor.
+
+                                Fusce ut pulvinar mauris. Quisque cursus rhoncus pharetra. Suspendisse condimentum ornare ligula. Suspendisse sit amet accumsan dolor. Vivamus ante ex, cursus non consectetur sit amet, placerat sit amet lorem. Nunc sollicitudin urna eu nunc fermentum feugiat. Donec eget porta tellus, quis aliquet risus. Aliquam eleifend venenatis quam id molestie. Mauris fermentum porta tempor. Duis auctor, leo at porttitor lobortis, metus arcu vestibulum tortor, eu maximus urna enim at nulla. Pellentesque in tellus cursus quam maximus accumsan bibendum at purus. Donec posuere pharetra faucibus. Vestibulum sit amet magna in quam mattis scelerisque non non libero. Quisque condimentum ligula massa, non bibendum sem sollicitudin quis. Cras facilisis lacus non dui rhoncus, molestie tristique neque volutpat.
+
+                                Etiam vulputate odio id nunc fermentum fermentum. Donec eu venenatis neque, nec ornare risus. Proin nec tortor pellentesque, suscipit libero vitae, lacinia nulla. Pellentesque tortor augue, euismod ac bibendum ut, pulvinar non magna. Nam nec lorem pretium quam molestie luctus quis at orci. Nam eleifend et risus non viverra. Aenean nulla lectus, auctor sed arcu maximus, accumsan congue velit. Sed bibendum accumsan dui sed placerat. Etiam elementum neque nec mi molestie convallis.
+
+                                Aenean vel consectetur leo, a consequat erat. Cras in malesuada erat. Mauris auctor ultrices felis, sit amet fringilla nibh venenatis iaculis. Duis vitae quam tincidunt, volutpat quam vitae, auctor metus. Nullam rutrum, sem lobortis ultrices convallis, dolor nulla vehicula eros, vel interdum tellus tellus id ligula. Aenean aliquam posuere mauris ut accumsan. Nam ligula leo, dictum sit amet ligula sit amet, placerat pulvinar nisl. Phasellus ut metus at mauris rutrum auctor. In dui tellus, tincidunt eget libero vel, dapibus dictum libero. Sed quam est, ultricies ac metus ac, cursus interdum enim. Curabitur ac rhoncus magna.
+
+                                Aliquam viverra velit in sodales feugiat. Suspendisse ut dapibus ante. Aenean non ante vel tortor dapibus tempor ac eget orci. Cras vel risus condimentum, interdum est facilisis, vehicula felis. Vivamus sit amet dolor volutpat eros dapibus congue id et nunc. Maecenas metus risus, congue at elit a, ullamcorper porta est. Sed bibendum velit nisi, ut rutrum est tincidunt in.
+                            </div>
+                        </div>
+                        <div class="techSheet">
+                            <div class="title">Technical Sheet</div>
+                            <div class="subtitle">Code technologies and Skills used in this Project</div>
+                            <hr />
+                            <ul class="list"></ul>
+                            <hr />
+                        </div>
+                        <div class="links">
+                            <a href="https://www.github.com" target="_blank">Github Repo<i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://www.facebook.com" target="_blank">Other Relevant Page<i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="blog" class="main-page">
+            <div class="blog-home"><i class="fas fa-th-large"></i></div>
+            <div class="sub-page page-current" id="blog-grid-page">
+                <header>
+                    <div class="title">Code Blogs and Laboratory.</div>
+                    <div class="subtitle">Research and Development almost as good as Q-Branch.</div>
+                </header>
+                <div class="blog-grid">
+                    <div class="grid-container-left">
+                        <div class="grid-item"></div>
+                    </div>
                     <div class="grid-container-right"></div>
                 </div>
             </div>
-            <footer id="footer">
-                <div class="footer-info">
-                    Conor Watson<br />
-                    Full Stack Web Developer<br />
-                    Glasgow, Scotland<br />
-                    conor.watson94@gmail.com<br />
-                </div>
-                <div class="icons"></div>
-            </footer>
-        </div>
-        <div class="sub-page-2" id="portfolio-item-page">
-            <span class="close"><i class="fas fa-times"></i></span>
-            <div id="page-wrapper">
-                <div id="title">Popup Title</div>
-                <div id="subtitle"></div>
-                <div class="carousel">
-                    <div class="image">
-                        <img src="img/AdventofCode.png" />
-                    </div>
-                    <div class="image">
-                        <img src="img/Chequered_Showcase.png" />
-                    </div>
-                    <div class="image">
-                        <img src="img/EdgeDetection.jpg" />
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="description">
-                        <div class="title">About this Project</div>
-                        <hr />
-                        <div class="text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in risus velit. Mauris aliquet dui vestibulum dolor gravida, aliquam vehicula arcu malesuada. Quisque pellentesque vel tortor in sagittis. Proin dapibus mauris enim, nec mattis sapien ullamcorper ac. Curabitur cursus, nibh at placerat vestibulum, diam elit euismod quam, dapibus congue urna metus quis nulla. Cras semper mi ut magna rhoncus, a efficitur est sodales. Curabitur aliquet, mauris in tempus feugiat, ante ante finibus est, et finibus turpis lacus vel nisl. Integer lacinia nibh sit amet ex mattis, et consectetur nunc mollis. Curabitur nec libero eu leo pellentesque semper. Quisque scelerisque justo volutpat mauris lacinia tempor.
+            <div class="sub-page" id="blog-page">
 
-                            Fusce ut pulvinar mauris. Quisque cursus rhoncus pharetra. Suspendisse condimentum ornare ligula. Suspendisse sit amet accumsan dolor. Vivamus ante ex, cursus non consectetur sit amet, placerat sit amet lorem. Nunc sollicitudin urna eu nunc fermentum feugiat. Donec eget porta tellus, quis aliquet risus. Aliquam eleifend venenatis quam id molestie. Mauris fermentum porta tempor. Duis auctor, leo at porttitor lobortis, metus arcu vestibulum tortor, eu maximus urna enim at nulla. Pellentesque in tellus cursus quam maximus accumsan bibendum at purus. Donec posuere pharetra faucibus. Vestibulum sit amet magna in quam mattis scelerisque non non libero. Quisque condimentum ligula massa, non bibendum sem sollicitudin quis. Cras facilisis lacus non dui rhoncus, molestie tristique neque volutpat.
-
-                            Etiam vulputate odio id nunc fermentum fermentum. Donec eu venenatis neque, nec ornare risus. Proin nec tortor pellentesque, suscipit libero vitae, lacinia nulla. Pellentesque tortor augue, euismod ac bibendum ut, pulvinar non magna. Nam nec lorem pretium quam molestie luctus quis at orci. Nam eleifend et risus non viverra. Aenean nulla lectus, auctor sed arcu maximus, accumsan congue velit. Sed bibendum accumsan dui sed placerat. Etiam elementum neque nec mi molestie convallis.
-
-                            Aenean vel consectetur leo, a consequat erat. Cras in malesuada erat. Mauris auctor ultrices felis, sit amet fringilla nibh venenatis iaculis. Duis vitae quam tincidunt, volutpat quam vitae, auctor metus. Nullam rutrum, sem lobortis ultrices convallis, dolor nulla vehicula eros, vel interdum tellus tellus id ligula. Aenean aliquam posuere mauris ut accumsan. Nam ligula leo, dictum sit amet ligula sit amet, placerat pulvinar nisl. Phasellus ut metus at mauris rutrum auctor. In dui tellus, tincidunt eget libero vel, dapibus dictum libero. Sed quam est, ultricies ac metus ac, cursus interdum enim. Curabitur ac rhoncus magna.
-
-                            Aliquam viverra velit in sodales feugiat. Suspendisse ut dapibus ante. Aenean non ante vel tortor dapibus tempor ac eget orci. Cras vel risus condimentum, interdum est facilisis, vehicula felis. Vivamus sit amet dolor volutpat eros dapibus congue id et nunc. Maecenas metus risus, congue at elit a, ullamcorper porta est. Sed bibendum velit nisi, ut rutrum est tincidunt in.
-                        </div>
-                    </div>
-                    <div class="techSheet">
-                        <div class="title">Technical Sheet</div>
-                        <div class="subtitle">Code technologies and Skills used in this Project</div>
-                        <hr />
-                        <ul class="list"></ul>
-                        <hr />
-                    </div>
-                    <div class="links">
-                        <a href="https://www.github.com" target="_blank">Github Repo<i class="fas fa-external-link-alt"></i></a>
-                        <a href="https://www.facebook.com" target="_blank">Other Relevant Page<i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
-    <div id="blog" class="main-page-2">
-        <div class="blog-header">
-            <div>Testing</div>
-        </div>
-        <div class="blah">
-
         </div>
     </div>
     <script src="JS/jquery-3.2.1.min.js"></script>
     <script src="JS/jquery.color-212.min.js"></script>
     <script src="JS/perfect-scrollbar.jquery.js"></script>
     <script src="JS/slick.min.js"></script>
-    <script src="JS/isInViewport.js"></script>
     <script src="JS/main.js"></script>
+    <script src="JS/blog.js"></script>
 </body>
 </html>

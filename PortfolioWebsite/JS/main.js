@@ -37,7 +37,7 @@ var pageLoaded = false;
 function setPageScroll(scrollTop) {
     if (scrollTop) lastScrollTop = scrollTop;
 
-    $(".sub-page-current").off("scroll").scroll(function (event) {
+    $(".page-current").off("scroll").scroll(function (event) {
         var st = $(this).scrollTop();
 
         if (st > lastScrollTop) {
@@ -94,7 +94,7 @@ function getWebsiteInfoFromRepo(repoName, repoID) {
 function addRepositoryToPortfolio(infoJSON, repoID) {
     if (infoJSON.show !== true) return;
 
-    var column = $(".grid-container-left");
+    var column = $("#portfolio .grid-container-left");
 
     var gridItem = $("<div class='grid-item' data-repoid='" + repoID + "' data-pagename='" + infoJSON.title.replace(/ /g, "-") + "'></div>").appendTo(column);
     var imageMain = $("<img class='imageMain' src='" + infoJSON.imageMain + "'/>").appendTo(gridItem);
@@ -344,23 +344,23 @@ function onLoadComplete() {
 }
 
 function sortPortfolio() {
-    var leftContainer = $(".grid-container-left");
-    var rightContainer = $(".grid-container-right");
-    var lastChildLeft = $(".grid-container-left").children().last();
-    var lastChildRight = $(".grid-container-right").children().last();
+    var leftContainer = $("#portfolio .grid-container-left");
+    var rightContainer = $("#portfolio .grid-container-right");
+    var lastChildLeft = $("#portfolio .grid-container-left").children().last();
+    var lastChildRight = $("#portfolio .grid-container-right").children().last();
 
     if (lastChildRight.length === 0) {
-        lastChildLeft.appendTo(".grid-container-right");
+        lastChildLeft.appendTo("#portfolio .grid-container-right");
 
-        lastChildLeft = $(".grid-container-left").children().last();
-        lastChildRight = $(".grid-container-right").children().last();
+        lastChildLeft = $("#portfolio .grid-container-left").children().last();
+        lastChildRight = $("#portfolio .grid-container-right").children().last();
     }
 
     while (leftContainer.height() > rightContainer.height() && lastChildLeft.position().top > lastChildRight.position().top + lastChildRight.height()) {
-        lastChildLeft.appendTo(".grid-container-right");
+        lastChildLeft.appendTo("#portfolio .grid-container-right");
 
-        lastChildLeft = $(".grid-container-left").children().last();
-        lastChildRight = $(".grid-container-right").children().last();
+        lastChildLeft = $("#portfolio .grid-container-left").children().last();
+        lastChildRight = $("#portfolio .grid-container-right").children().last();
     }
 }
 
@@ -470,7 +470,8 @@ $(document).ready(function () {
     window.addEventListener('popstate', function (e) {
         // e.state is equal to the data-attribute of the last image we clicked
         if (e.state == null || e.state == "Portfolio") {
-            animateToHomepage();
+            //animateToHomepage();
+            animatePages(".main-page.page-current", "#portfolio");
         }
     });
 
@@ -483,11 +484,42 @@ $(document).ready(function () {
 
         function closeSidebar(event) {
             event.stopPropagation();
-            $(".pt-page-current, #header").removeClass("animate-left");
+            $(".page-current, #header").removeClass("animate-left");
             setTimeout(function () { $("#side-menu").css({ "display": "none" }); }, 350);
-            $("#side-menu .close, .pt-page-current").off("click");
+            $("#side-menu .close, .page-current").off("click");
         }
 
-        $("#side-menu .close, .page-1").click(closeSidebar);
+        $("#side-menu .close, .page-current").click(closeSidebar);
+    });
+
+    $(".menu-item").click(function () {
+        var currActive = $(".menu-item.active");
+        var newActive = $(this);
+
+        var pageFrom = currActive.attr("data-page");
+        var pageTo = newActive.attr("data-page");
+        var options = {
+            beforeAnimStart: function () { },
+            onAnimEnd: function () { }
+        };
+
+        if ($(".menu-item").index(currActive) > $(".menu-item").index(newActive)) {
+            options.animation = "Fade Right / Fade Left";
+        }
+        else {
+            options.animation = "Fade Left / Fade Right";
+        }
+
+        //TODO: Push to history, change URL
+        //TODO: Add fade-in for blog
+
+        currActive.removeClass("active");
+        newActive.addClass("active");
+
+        $("#side-menu .close").click();
+
+        setTimeout(function () {
+            animatePages(pageFrom, pageTo, options);
+        }, 400);
     });
 });
