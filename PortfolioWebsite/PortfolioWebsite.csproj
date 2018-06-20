@@ -97,6 +97,24 @@
   <ItemGroup>
     <Content Include="CSS\ajax-loader.gif" />
     <Content Include="CSS\animations.css" />
+    <Content Include="CSS\blog.css">
+      <DependentUpon>blog.less</DependentUpon>
+    </Content>
+    <Content Include="CSS\blog.min.css">
+      <DependentUpon>blog.css</DependentUpon>
+    </Content>
+    <Content Include="CSS\global.css">
+      <DependentUpon>global.less</DependentUpon>
+    </Content>
+    <Content Include="CSS\global.min.css">
+      <DependentUpon>global.css</DependentUpon>
+    </Content>
+    <Content Include="CSS\portfolio.css">
+      <DependentUpon>portfolio.less</DependentUpon>
+    </Content>
+    <Content Include="CSS\portfolio.min.css">
+      <DependentUpon>portfolio.css</DependentUpon>
+    </Content>
     <Content Include="CSS\slick-theme.css" />
     <Content Include="CSS\slick.css" />
     <Content Include="img\AdventofCode.png" />
@@ -135,7 +153,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="CSS\main.less" />
+    <Content Include="CSS\portfolio.less" />
     <Content Include="test.html" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
@@ -147,6 +165,8 @@
     <Content Include="CSS\fonts\slick.ttf" />
     <Content Include="CSS\fonts\slick.woff" />
     <Content Include="github.json" />
+    <Content Include="CSS\global.less" />
+    <Content Include="CSS\blog.less" />
     <None Include="Properties\PublishProfiles\PortfolioWebsite.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -169,12 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\fontawesome-all.min.css" />
-    <Content Include="CSS\main.css">
-      <DependentUpon>main.less</DependentUpon>
-    </Content>
-    <Content Include="CSS\main.min.css">
-      <DependentUpon>main.css</DependentUpon>
-    </Content>
     <Content Include="Portfolio.html" />
     <Content Include="JS\jquery-3.2.1.min.js" />
     <Content Include="JS\main.js" />

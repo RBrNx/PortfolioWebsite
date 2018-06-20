@@ -2,5 +2,13 @@
   {
     "outputFile": "CSS/main.css",
     "inputFile": "CSS/main.less"
+  },
+  {
+    "outputFile": "CSS/blog.css",
+    "inputFile": "CSS/blog.less"
+  },
+  {
+    "outputFile": "CSS/portfolio.css",
+    "inputFile": "CSS/portfolio.less"
   }
 ]
