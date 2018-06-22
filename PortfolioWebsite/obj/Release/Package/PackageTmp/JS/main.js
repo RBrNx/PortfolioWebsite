@@ -37,7 +37,7 @@ var pageLoaded = false;
 function setPageScroll(scrollTop) {
     if (scrollTop) lastScrollTop = scrollTop;
 
-    $(".pt-page-current").off("scroll").scroll(function (event) {
+    $(".page-current").off("scroll").scroll(function (event) {
         var st = $(this).scrollTop();
 
         if (st > lastScrollTop) {
@@ -94,7 +94,7 @@ function getWebsiteInfoFromRepo(repoName, repoID) {
 function addRepositoryToPortfolio(infoJSON, repoID) {
     if (infoJSON.show !== true) return;
 
-    var column = $(".grid-container-left");
+    var column = $("#portfolio .grid-container-left");
 
     var gridItem = $("<div class='grid-item' data-repoid='" + repoID + "' data-pagename='" + infoJSON.title.replace(/ /g, "-") + "'></div>").appendTo(column);
     var imageMain = $("<img class='imageMain' src='" + infoJSON.imageMain + "'/>").appendTo(gridItem);
@@ -147,22 +147,22 @@ function loadRepoPage(portfolioItem) {
     var currRepo = repos.find(r => r.id == repoID);
     var websiteJSON = currRepo.websitejson;
 
-    $(".portfolio-page #title").text(websiteJSON.title);
-    $(".portfolio-page #subtitle").text(websiteJSON.description);
+    $("#portfolio-item-page #title").text(websiteJSON.title);
+    $("#portfolio-item-page #subtitle").text(websiteJSON.description);
 
-    $(".portfolio-page #page-wrapper .carousel").empty();
+    $("#portfolio-item-page #page-wrapper .carousel").empty();
     for (var i = 0; i < websiteJSON.carouselImages.length; i++) {
-        $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo(".portfolio-page #page-wrapper .carousel")
+        $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo("#portfolio-item-page #page-wrapper .carousel")
     }
 
-    $(".portfolio-page #page-wrapper .info .description .text").html(websiteJSON.aboutProject);
+    $("#portfolio-item-page #page-wrapper .info .description .text").html(websiteJSON.aboutProject);
 
-    $(".portfolio-page #page-wrapper .info .techSheet .list").empty();
+    $("#portfolio-item-page #page-wrapper .info .techSheet .list").empty();
     for (var i = 0; i < websiteJSON.techSheet.length; i++) {
-        $("<li>" + websiteJSON.techSheet[i] + "</li>").appendTo(".portfolio-page #page-wrapper .info .techSheet .list");
+        $("<li>" + websiteJSON.techSheet[i] + "</li>").appendTo("#portfolio-item-page #page-wrapper .info .techSheet .list");
     }
 
-    $(".portfolio-page #page-wrapper .info .links").empty();
+    $("#portfolio-item-page #page-wrapper .info .links").empty();
     for (var i = 0; i < websiteJSON.links.length; i++) {
         var linkIcon = null;
 
@@ -179,19 +179,53 @@ function loadRepoPage(portfolioItem) {
                 break;
         }
 
-        var link = $("<a href='" + websiteJSON.links[i].link + "' target='_blank'>" + websiteJSON.links[i].linkText + "</a>").appendTo(".portfolio-page #page-wrapper .info .links");
+        var link = $("<a href='" + websiteJSON.links[i].link + "' target='_blank'>" + websiteJSON.links[i].linkText + "</a>").appendTo("#portfolio-item-page #page-wrapper .info .links");
         $(linkIcon).prependTo(link);
     }
 
     setTimeout(function () {
         $(".portfolio-home").addClass("show").click(function () {
-            animateToHomepage();
+            animatePages("#portfolio-item-page", "#portfolio-grid-page", {
+                animation: "Scale Up / Scale Up",
+                beforeAnimStart: function () {
+                    $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+                    $(".carousel").css({ "height": "400px" });
+                },
+                onAnimEnd: function () {
+                    $(".carousel").slick("unslick");
+                    setPageScroll(0);
+                }
+            });
             history.pushState("Portfolio", null, "Portfolio");
             $(this).removeClass("show").off("click");
         });
     }, 800);
 
-    animateToSubpage();
+    //animateToSubpage();
+    animatePages("#portfolio-grid-page", "#portfolio-item-page", {
+        animation: "Scale Down / Scale Down",
+        beforeAnimStart: function () {
+            $(".carousel").slick({
+                arrows: true,
+                swipe: true,
+                //infinite: true,
+                dots: true,
+                speed: 500
+            });
+            $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
+
+            var carouselHeight = 0;
+            $(".carousel").find("img").each(function () {
+                if ($(this).height() > carouselHeight) carouselHeight = $(this).height();
+            });
+            $(".carousel").css({ "height": carouselHeight });
+
+            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+        },
+        onAnimEnd: function () {
+            setPageScroll(0);
+        }
+    });
 }
 
 function b64DecodeUnicode(str) {
@@ -310,23 +344,23 @@ function onLoadComplete() {
 }
 
 function sortPortfolio() {
-    var leftContainer = $(".grid-container-left");
-    var rightContainer = $(".grid-container-right");
-    var lastChildLeft = $(".grid-container-left").children().last();
-    var lastChildRight = $(".grid-container-right").children().last();
+    var leftContainer = $("#portfolio .grid-container-left");
+    var rightContainer = $("#portfolio .grid-container-right");
+    var lastChildLeft = $("#portfolio .grid-container-left").children().last();
+    var lastChildRight = $("#portfolio .grid-container-right").children().last();
 
     if (lastChildRight.length === 0) {
-        lastChildLeft.appendTo(".grid-container-right");
+        lastChildLeft.appendTo("#portfolio .grid-container-right");
 
-        lastChildLeft = $(".grid-container-left").children().last();
-        lastChildRight = $(".grid-container-right").children().last();
+        lastChildLeft = $("#portfolio .grid-container-left").children().last();
+        lastChildRight = $("#portfolio .grid-container-right").children().last();
     }
 
     while (leftContainer.height() > rightContainer.height() && lastChildLeft.position().top > lastChildRight.position().top + lastChildRight.height()) {
-        lastChildLeft.appendTo(".grid-container-right");
+        lastChildLeft.appendTo("#portfolio .grid-container-right");
 
-        lastChildLeft = $(".grid-container-left").children().last();
-        lastChildRight = $(".grid-container-right").children().last();
+        lastChildLeft = $("#portfolio .grid-container-left").children().last();
+        lastChildRight = $("#portfolio .grid-container-right").children().last();
     }
 }
 
@@ -372,56 +406,50 @@ function imageManager(options) {
     if (this.options["onEmpty"] !== null) this.onEmpty = options.onEmpty;
 }
 
-function animateToSubpage() {
-    $(".page-2").addClass("pt-page-current");
+function animatePages(fromPage, toPage, options) {
+    var _options = options || { animation: "Fade Left / Fade Right" };
+    var fromAnimation = null;
+    var toAnimation = null;
 
-    $(".carousel").slick({
-        arrows: true,
-        swipe: true,
-        //infinite: true,
-        dots: true,
-        speed: 500
+    switch (_options.animation) {
+        case "Scale Down / Scale Down":
+            fromAnimation = "pt-page-scaleDown";
+            toAnimation = "pt-page-scaleUpDown";
+            break;
+        case "Scale Up / Scale Up":
+            fromAnimation = "pt-page-scaleDownUp";
+            toAnimation = "pt-page-scaleUp";
+            break;
+        case "Fade Left / Fade Right":
+            fromAnimation = "pt-page-moveToLeftFade";
+            toAnimation = "pt-page-moveFromRightFade";
+            break;
+        case "Fade Right / Fade Left":
+            fromAnimation = "pt-page-moveToRightFade";
+            toAnimation = "pt-page-moveFromLeftFade";
+            break;
+    }
+    
+    $(toPage).addClass("page-current");
+
+
+    if (_options.beforeAnimStart) {
+        var func = _options.beforeAnimStart;
+        func();
+    }
+
+    $(fromPage).addClass(fromAnimation).on("animationend", function () {
+        $(fromPage).off("animationend");
+        $(fromPage).removeClass("page-current " + fromAnimation);
     });
-    $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
+    $(toPage).addClass(toAnimation + " pt-page-delay300").on("animationend", function () {
+        $(toPage).off("animationend");
+        $(toPage).removeClass(toAnimation + " pt-page-delay300");
 
-    var carouselHeight = 0;
-    $(".carousel").find("img").each(function () {
-        if ($(this).height() > carouselHeight) carouselHeight = $(this).height();
-    });
-    $(".carousel").css({ "height": carouselHeight });
-
-    $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-
-    $(".page-1").addClass("pt-page-scaleDown").on("animationend", function () {
-        $(".page-1").off("animationend");
-        $(".page-1").removeClass("pt-page-current pt-page-scaleDown");
-    });
-    $(".page-2").addClass("pt-page-scaleUpDown pt-page-delay300").on("animationend", function () {
-        $(".page-2").off("animationend");
-        $(".page-2").removeClass("pt-page-scaleUpDown pt-page-delay300");
-
-        setPageScroll(0);
-    });
-}
-
-function animateToHomepage() {
-    $(".page-1").addClass("pt-page-current");
-
-    $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-
-    $(".carousel").css({ "height": "400px" });
-
-    $(".page-2").addClass("pt-page-scaleDownUp").on("animationend", function () {
-        $(".page-2").off("animationend");
-        $(".page-2").removeClass("pt-page-current pt-page-scaleDownUp");
-
-        $(".carousel").slick("unslick");
-    });
-    $(".page-1").addClass("pt-page-scaleUp pt-page-delay300").on("animationend", function () {
-        $(".page-1").off("animationend");
-        $(".page-1").removeClass("pt-page-scaleUp pt-page-delay300");
-
-        setPageScroll(0);
+        if (_options.onAnimEnd) {
+            var func = _options.onAnimEnd;
+            func();
+        }
     });
 }
 
@@ -442,7 +470,8 @@ $(document).ready(function () {
     window.addEventListener('popstate', function (e) {
         // e.state is equal to the data-attribute of the last image we clicked
         if (e.state == null || e.state == "Portfolio") {
-            animateToHomepage();
+            //animateToHomepage();
+            animatePages(".main-page.page-current", "#portfolio");
         }
     });
 
@@ -451,15 +480,46 @@ $(document).ready(function () {
     $(".navbar-toggle").click(function (event) {
         event.stopPropagation();
         $("#side-menu").css({ "display": "block" });
-        $(".pt-page-current, #header").addClass("animate-left");
+        $(".page-current, #header").addClass("animate-left");
 
         function closeSidebar(event) {
             event.stopPropagation();
-            $(".pt-page-current, #header").removeClass("animate-left");
+            $(".page-current, #header").removeClass("animate-left");
             setTimeout(function () { $("#side-menu").css({ "display": "none" }); }, 350);
-            $("#side-menu .close, .pt-page-current").off("click");
+            $("#side-menu .close, .page-current").off("click");
         }
 
-        $("#side-menu .close, .page-1").click(closeSidebar);
+        $("#side-menu .close, .page-current").click(closeSidebar);
+    });
+
+    $(".menu-item").click(function () {
+        var currActive = $(".menu-item.active");
+        var newActive = $(this);
+
+        var pageFrom = currActive.attr("data-page");
+        var pageTo = newActive.attr("data-page");
+        var options = {
+            beforeAnimStart: function () { },
+            onAnimEnd: function () { }
+        };
+
+        if ($(".menu-item").index(currActive) > $(".menu-item").index(newActive)) {
+            options.animation = "Fade Right / Fade Left";
+        }
+        else {
+            options.animation = "Fade Left / Fade Right";
+        }
+
+        //TODO: Push to history, change URL
+        //TODO: Add fade-in for blog
+
+        currActive.removeClass("active");
+        newActive.addClass("active");
+
+        $("#side-menu .close").click();
+
+        setTimeout(function () {
+            animatePages(pageFrom, pageTo, options);
+        }, 400);
     });
 });

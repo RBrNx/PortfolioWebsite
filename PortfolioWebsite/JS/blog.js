@@ -1,7 +1,7 @@
 ﻿/// <reference path="main.js" />
 
 $(document).ready(function () {
-    $.getJSON("blogs/blogs.json", function (data) {
+    $.getJSON("/blogs/blogs.json", function (data) {
         sessionStorage.setObj("blogs", data.blogs);
 
         function dateSort(a, b) {
@@ -58,9 +58,12 @@ function loadBlog(gridItem) {
     var blogs = sessionStorage.getObj("blogs");
     var currBlog = blogs.find(b => b.id == id);
 
-    $("#blog-page").load("blogs/" + currBlog.file, function () {
+    $("#blog-page").load("/blogs/" + currBlog.file, function () {
         $("#blog-page .title").html(currBlog.titleHTML);
         $("#blog-page .subtitle").html(currBlog.description);
+        $("#blog-page .publish-date").text(new Date(currBlog.date).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" }));
+
+        Prism.highlightAllUnder($("#blog-page")[0]);
     });
 
 
@@ -74,5 +77,10 @@ function loadBlog(gridItem) {
         });
     }, 800);
 
-    animatePages("#blog-grid-page", "#blog-page", { animation: "Scale Down / Scale Down" });
+    animatePages("#blog-grid-page", "#blog-page", {
+        animation: "Scale Down / Scale Down",
+        onAnimEnd: function () {
+            setPageScroll(0);
+        }
+    });
 }

@@ -1,94 +1,50 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-	<meta charset="utf-8" />
-    <style>
-        .body{
-            background-color: #292929;
-            color: #eee;
-            font-family: Consolas,monaco,monospace; 
-        }
-        .blue{
-            color: #6987AB;
-        }
-        .green{
-            color: #72A095;
-        }
-        .orange{
-            color: #AC8579;
-        }
-        .yellow{
-            color: #99A08B;
-        }
-
-        .body{
-            background-color: #303030;
-            color: #E8F3F6;
-            font-family: Consolas,monaco,monospace; 
-        }
-        .blue{
-            color: #5EAFF2;
-        }
-        .green{
-            color: #B2E666;
-        }
-        .orange{
-            color: #CA543A;
-        }
-        .yellow{
-            color: #E5786D;
-        }
-
-        p{
-            margin: 0;
-            -webkit-margin-before: 0;
-            -webkit-margin-after: 0;
-        }
-    </style>
+    <title>Basic</title>
+    <script src="/JS/page.js"></script>
+    <base href="/basic/">
 </head>
 <body>
-    <div class="body">
-        <p><span class="blue">namespace</span> Website</p>
-        <p>{</p>
-        <p>&emsp;<span class="blue">public Class</span> <span class="green">WebDeveloper</span></p>
-        <p>&emsp;{</p>
-        <p>&emsp;&emsp;<span class="blue">public string</span> Name { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
-        <p>&emsp;&emsp;<span class="blue">public int</span> Age { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
-        <p>&emsp;&emsp;<span class="blue">public int</span> YearsExperience { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
-        <p>&emsp;&emsp;<span class="blue">public</span> <span class="green">List</span>&lt;<span class="blue">string</span>&gt; Languages { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
-        <p>&emsp;&emsp;<span class="blue">public String</span> Notes { <span class="blue">get</span>; <span class="blue">set</span>; }</p>
-        <p>&emsp;}</p>
-        <p></p>
-        <p>&emsp;<span class="blue">class</span> <span class="green">WebsiteIntro</span></p>
-        <p>&emsp;{</p>
-        <p>&emsp;&emsp;<span class="blue">static void</span> Main(<span class="blue">string</span>[] args)</p>
-        <p>&emsp;&emsp;{</p>
-        <p>&emsp;&emsp;&emsp;<span class="green">WebDeveloper</span> David = <span class="blue">new</span> <span class="green">WebDeveloper</span></p>
-        <p>&emsp;&emsp;&emsp;{</p>
-        <p id="example"></p>
-        <p>&emsp;&emsp;&emsp;};</p>
-        <p>&emsp;&emsp;};</p>
-        <p>&emsp;};</p>
-        <p>}</p>
-    </div>
-    <script src="JS/typeit.js"></script>
+    <h1>Basic</h1>
+    <p></p>
+    <ul>
+        <li><a href="./">/</a></li>
+        <li><a href="#whoop">#whoop</a></li>
+        <li><a href="./about">/about</a></li>
+        <li><a href="./contact">/contact</a></li>
+        <li><a href="./contact/me">/contact/me</a></li>
+        <li><a href="./not-found?foo=bar">/not-found</a></li>
+    </ul>
     <script>
-        new TypeIt('#example', {
-            speed: 100,
-            html: true,
-            strings: [
-                '&emsp;&emsp;&emsp;&emsp;Name = <span class="orange">"David Mimnagh"</span>,',
-                '&emsp;&emsp;&emsp;&emsp;Age = <span class="yellow">24</span>,',
-                '&emsp;&emsp;&emsp;&emsp;YearsExperience = <span class="yellow">2</span>,',
-                '&emsp;&emsp;&emsp;&emsp;Languages = <span class="blue">new String</span>[] { <span class="orange">"C#"</span>, <span class="orange">"Javscript"</span>, <span class="orange">"SQL"</span>, <span class="orange">"LINQ"</span>, <span class="orange">"HTML"</span>, <span class="orange">"CSS"</span>, <span class="orange">"C++"</span>, <span class="orange">"Java"</span> }.ToList(),',
-                '&emsp;&emsp;&emsp;&emsp;Notes = <span class="orange">@"Hi, I\'m David a .NET developer based in Glasgow....</span>',
-                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">I gratuated from the University of the West of Scotland with a 2:1 Honours Degree, in Computer Games Technology.</span>',
-                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">I use C#, Javascript, SQL, LINQ, Html, and CSS on a daily basis. I also have experience with C++ and Java from university.</span>',
-                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">In my spare time I enjoy creating my own programs, watching football, doing puzzles, and playing games.</span>',
-                '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="orange">For any queries or questions you have, please, feel free to contact me."</span>',
-            ]
-        });
+      // the "notfound" implements a catch-all
+      // with page('*', notfound). Here we have
+      // no catch-all, so page.js will redirect
+      // to the location of paths which do not
+      // match any of the following routes
+      //
+      page.base('/basic');
+
+      page('/', index);
+      page('/about', about);
+      page('/contact', contact);
+      page('/contact/:contactName', contact);
+      page();
+
+      function index() {
+        document.querySelector('p')
+          .textContent = 'viewing index';
+      }
+
+      function about() {
+        document.querySelector('p')
+          .textContent = 'viewing about';
+      }
+
+      function contact(ctx) {
+        document.querySelector('p')
+          .textContent = 'viewing contact ' + (ctx.params.contactName || '');
+      }
     </script>
 </body>
 </html>

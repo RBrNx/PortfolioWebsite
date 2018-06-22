@@ -40,7 +40,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/15/2015 03:06:24</publishTime>
     </File>
     <File Include="bin/PortfolioWebsite.dll">
-      <publishTime>06/19/2018 16:17:38</publishTime>
+      <publishTime>06/20/2018 17:02:19</publishTime>
     </File>
     <File Include="bin/PortfolioWebsite.pdb">
       <publishTime>06/12/2018 22:42:38</publishTime>
@@ -81,11 +81,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
       <publishTime>06/18/2015 21:19:46</publishTime>
     </File>
+    <File Include="blogs/blogs.json">
+      <publishTime>06/20/2018 16:03:38</publishTime>
+    </File>
+    <File Include="blogs/Logging1.html">
+      <publishTime>06/20/2018 16:07:20</publishTime>
+    </File>
+    <File Include="blogs/Logging2.html">
+      <publishTime>06/20/2018 16:51:09</publishTime>
+    </File>
     <File Include="CSS/ajax-loader.gif">
       <publishTime>06/11/2018 09:05:07</publishTime>
     </File>
     <File Include="CSS/animations.css">
       <publishTime>06/11/2018 15:17:20</publishTime>
+    </File>
+    <File Include="CSS/blog.css">
+      <publishTime>06/20/2018 16:52:25</publishTime>
+    </File>
+    <File Include="CSS/blog.less">
+      <publishTime>06/20/2018 16:52:24</publishTime>
+    </File>
+    <File Include="CSS/blog.min.css">
+      <publishTime>06/20/2018 16:52:25</publishTime>
     </File>
     <File Include="CSS/fontawesome-all.min.css">
       <publishTime>03/14/2018 10:15:55</publishTime>
@@ -96,6 +114,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="CSS/fonts/slick.woff">
       <publishTime>06/11/2018 09:05:07</publishTime>
     </File>
+    <File Include="CSS/global.css">
+      <publishTime>06/20/2018 09:41:37</publishTime>
+    </File>
+    <File Include="CSS/global.less">
+      <publishTime>06/20/2018 11:51:21</publishTime>
+    </File>
+    <File Include="CSS/global.min.css">
+      <publishTime>06/20/2018 09:41:37</publishTime>
+    </File>
     <File Include="CSS/main.css">
       <publishTime>06/19/2018 16:13:30</publishTime>
     </File>
@@ -104,6 +131,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="CSS/main.min.css">
       <publishTime>06/19/2018 16:13:30</publishTime>
+    </File>
+    <File Include="CSS/portfolio.css">
+      <publishTime>06/20/2018 11:51:40</publishTime>
+    </File>
+    <File Include="CSS/portfolio.less">
+      <publishTime>06/20/2018 11:51:44</publishTime>
+    </File>
+    <File Include="CSS/portfolio.min.css">
+      <publishTime>06/20/2018 11:51:40</publishTime>
     </File>
     <File Include="CSS/slick-theme.css">
       <publishTime>06/11/2018 09:05:07</publishTime>
@@ -204,6 +240,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="index.html">
       <publishTime>06/15/2018 10:27:32</publishTime>
     </File>
+    <File Include="JS/blog.js">
+      <publishTime>06/20/2018 16:57:40</publishTime>
+    </File>
     <File Include="JS/isInViewport.js">
       <publishTime>06/13/2018 11:57:11</publishTime>
     </File>
@@ -214,7 +253,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/15/2018 10:21:19</publishTime>
     </File>
     <File Include="JS/main.js">
-      <publishTime>06/19/2018 15:56:19</publishTime>
+      <publishTime>06/20/2018 14:14:08</publishTime>
     </File>
     <File Include="JS/modernizer.custom.js">
       <publishTime>06/11/2018 17:48:51</publishTime>
@@ -235,7 +274,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2018 15:15:57</publishTime>
     </File>
     <File Include="Portfolio.html">
-      <publishTime>06/15/2018 10:27:32</publishTime>
+      <publishTime>06/20/2018 14:32:47</publishTime>
     </File>
     <File Include="test.html">
       <publishTime>06/14/2018 10:52:49</publishTime>

@@ -95,6 +95,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="blogs\images\1\ErrorMessage.png" />
     <Content Include="blogs\Logging1.html" />
     <Content Include="blogs\Logging2.html" />
     <Content Include="CSS\ajax-loader.gif" />
@@ -117,6 +118,7 @@
     <Content Include="CSS\portfolio.min.css">
       <DependentUpon>portfolio.css</DependentUpon>
     </Content>
+    <Content Include="CSS\prism.css" />
     <Content Include="CSS\slick-theme.css" />
     <Content Include="CSS\slick.css" />
     <Content Include="img\AdventofCode.png" />
@@ -137,6 +139,7 @@
     <Content Include="img\mathmathrev_2.png" />
     <Content Include="img\Pacific-Rose-Sobel.png" />
     <Content Include="img\PortfolioWebsite_2.png" />
+    <Content Include="img\profile-picture.png" />
     <Content Include="img\puttered.png" />
     <Content Include="img\puttered_2.png" />
     <Content Include="img\puttered_3.png" />
@@ -150,6 +153,8 @@
     <Content Include="img\sokogenerator_2.png" />
     <Content Include="JS\blog.js" />
     <Content Include="JS\jquery.color-212.min.js" />
+    <Content Include="JS\page.js" />
+    <Content Include="JS\prism.js" />
     <Content Include="JS\slick.min.js" />
     <Content Include="JS\typeit.js" />
     <Content Include="packages.config" />
@@ -193,11 +198,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\fontawesome-all.min.css" />
-    <Content Include="Portfolio.html" />
+    <Content Include="index.html" />
     <Content Include="JS\jquery-3.2.1.min.js" />
     <Content Include="JS\main.js" />
     <Content Include="JS\perfect-scrollbar.jquery.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

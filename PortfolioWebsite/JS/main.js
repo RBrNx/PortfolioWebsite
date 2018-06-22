@@ -37,7 +37,7 @@ var pageLoaded = false;
 function setPageScroll(scrollTop) {
     if (scrollTop) lastScrollTop = scrollTop;
 
-    $(".page-current").off("scroll").scroll(function (event) {
+    $(".sub-page.page-current").off("scroll").scroll(function (event) {
         var st = $(this).scrollTop();
 
         if (st > lastScrollTop) {
@@ -46,6 +46,13 @@ function setPageScroll(scrollTop) {
             $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
         }
         lastScrollTop = st;
+
+        if ($("#blog-page").scrollTop() >= 200) {
+            $(".mouse-scroll").addClass("hidden");
+        }
+        else {
+            $(".mouse-scroll").removeClass("hidden");
+        }
     });
 }
 
@@ -152,7 +159,7 @@ function loadRepoPage(portfolioItem) {
 
     $("#portfolio-item-page #page-wrapper .carousel").empty();
     for (var i = 0; i < websiteJSON.carouselImages.length; i++) {
-        $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo("#portfolio-item-page #page-wrapper .carousel")
+        $("<div class='image'><img src='/img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo("#portfolio-item-page #page-wrapper .carousel")
     }
 
     $("#portfolio-item-page #page-wrapper .info .description .text").html(websiteJSON.aboutProject);
@@ -319,28 +326,141 @@ function animateBond() {
     });
 }
 animateBond();
-//$(".loading-overlay").hide();
-//$(".portfolio-grid").css("opacity", "1");
 
-function onLoadComplete() {
-    var urlPath = window.location.pathname;
-    var urlHash = window.location.hash.replace("#", "");
+function getNavigationType(urlFrom, urlTo) {
+    if (urlFrom === urlTo) return "onLoad";
 
-    //$(".circle-main").removeClass("scale-mid").addClass("scale-max");
-    //$(".loading-overlay").css("opacity", "0");
-    setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
-    $(".portfolio-grid").addClass("fadeInUp");
-    $(".title-container").addClass("fadeInDown");
+    var urlFromSplit = urlFrom.split("/");
+    var urlToSplit = urlTo.split("/");
 
-    if (urlHash != "") {
-        if (urlPath.startsWith("/Portfolio")) {
-            var portfolioItem = $(".grid-item[data-pagename='" + urlHash + "']");
-            loadRepoPage(portfolioItem);
-        }
+    if (urlFromSplit[1] != urlToSplit[1]) return "fromMain";
+
+    return "fromSub";
+}
+
+function preNavigation(ctx, next) {
+    ctx.state.currURL = window.location.pathname;
+
+    if ($("#header").hasClass("animate-left")) {
+        $("#side-menu .close").click();
+        setTimeout(next, 400);
     }
     else {
-
+        next();
     }
+}
+
+function navigateToPortfolioGrid(ctx, next) {
+    var urlFrom = ctx.state.currURL;
+    var urlTo = ctx.path;
+    var type = getNavigationType(urlFrom, urlTo);
+
+    var pageFrom = null;
+    var pageTo = "#portfolio";
+    var animation = null;
+    var beforeAnimStart = function () { };
+    var onAnimEnd = function () { };
+
+    if (type == "onLoad") {
+        $("#portfolio-grid-page .portfolio-grid").addClass("fadeInUp");
+        $("#portfolio-grid-page .title-container").addClass("fadeInDown");
+        return;
+    }
+    else if(type == "fromSub") {
+        animation = "Scale Up / Scale Up";
+        pageFrom = ".sub-page.page-current";
+        beforeAnimStart = function () {
+            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+            $(".carousel").css({ "height": "500px" });
+        };
+        onAnimEnd = function () {
+            $(".carousel").slick("unslick");
+            setPageScroll(0);
+        };
+    }
+    else if (type == "fromMain") {
+        animation = "Fade Right / Fade Left";
+        pageFrom = ".main-page.page-current";
+        onAnimEnd = function () {
+            setPageScroll(0);
+        };
+    }
+
+    animatePages(pageFrom, pageTo, {
+        animation: animation,
+        beforeAnimStart: beforeAnimStart,
+        onAnimEnd: onAnimEnd
+    });
+}
+
+function navigateToPortfolioItem(type, ctx, next) {
+    var navPage = ctx.params.page;
+    var gridItem = $("#portfolio-grid-page .grid-item[data-pagename='" + navPage + "']");
+
+    if (gridItem.length > 0) {
+        loadRepoPage(gridItem);
+    }
+    else {
+        page("/portfolio");
+    }
+}
+
+function navigateToBlogGrid(ctx, next) {
+    var urlFrom = ctx.state.currURL;
+    var urlTo = ctx.path;
+    var type = getNavigationType(urlFrom, urlTo);
+
+    var pageFrom = null;
+    var pageTo = "#blog";
+    var animation = null;
+    var beforeAnimStart = function () { };
+    var onAnimEnd = function () { };
+
+    if (type == "onLoad") {
+        $(".main-page.page-current").removeClass("page-current");
+        $("#blog").addClass("page-current");
+
+        $(".menu-item.active").removeClass("active");
+        $(".menu-item[href='./blog']").addClass("active");
+
+        $("#blog-grid-page .blog-grid").addClass("fadeInUp");
+        $("#blog-grid-page header").addClass("fadeInDown");
+        return;
+    }
+    else if (type == "fromSub") {
+        animation = "Scale Up / Scale Up";
+        pageFrom = ".sub-page.page-current";
+        beforeAnimStart = function () {
+            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+        };
+        onAnimEnd = function () {
+            setPageScroll(0);
+        };
+    }
+    else if (type == "fromMain") {
+        animation = "Fade Left / Fade Right";
+        pageFrom = ".main-page.page-current";
+        onAnimEnd = function () {
+            setPageScroll(0);
+        };
+    }
+
+    animatePages(pageFrom, pageTo, {
+        animation: animation,
+        beforeAnimStart: beforeAnimStart,
+        onAnimEnd: onAnimEnd
+    });
+}
+
+function onLoadComplete() {
+    setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
+
+    page("/", preNavigation, navigateToPortfolioGrid);
+    page("/portfolio", preNavigation, navigateToPortfolioGrid);
+    page("/portfolio/:page", preNavigation, navigateToPortfolioItem);
+    page("/blog", preNavigation, navigateToBlogGrid);
+    page('*', preNavigation, navigateToPortfolioGrid)
+    page();
 }
 
 function sortPortfolio() {
@@ -407,6 +527,8 @@ function imageManager(options) {
 }
 
 function animatePages(fromPage, toPage, options) {
+    var _fromP = $(fromPage);
+    var _toP = $(toPage);
     var _options = options || { animation: "Fade Left / Fade Right" };
     var fromAnimation = null;
     var toAnimation = null;
@@ -430,7 +552,7 @@ function animatePages(fromPage, toPage, options) {
             break;
     }
     
-    $(toPage).addClass("page-current");
+    _toP.addClass("page-current");
 
 
     if (_options.beforeAnimStart) {
@@ -438,13 +560,13 @@ function animatePages(fromPage, toPage, options) {
         func();
     }
 
-    $(fromPage).addClass(fromAnimation).on("animationend", function () {
-        $(fromPage).off("animationend");
-        $(fromPage).removeClass("page-current " + fromAnimation);
+    _fromP.addClass(fromAnimation).on("animationend", function () {
+        _fromP.off("animationend");
+        _fromP.removeClass("page-current " + fromAnimation);
     });
     $(toPage).addClass(toAnimation + " pt-page-delay300").on("animationend", function () {
-        $(toPage).off("animationend");
-        $(toPage).removeClass(toAnimation + " pt-page-delay300");
+        _toP.off("animationend");
+        _toP.removeClass(toAnimation + " pt-page-delay300");
 
         if (_options.onAnimEnd) {
             var func = _options.onAnimEnd;
@@ -454,7 +576,7 @@ function animatePages(fromPage, toPage, options) {
 }
 
 $(document).ready(function () {
-    $.getJSON("github.json", function (data) {
+    $.getJSON("/github.json", function (data) {
         sessionStorage.setItem("token", data.token);
 
         $.when(getRepos()).done(function () {
@@ -465,14 +587,6 @@ $(document).ready(function () {
                 getWebsiteInfoFromRepo(repos[i].name, repos[i].id);
             }
         });
-    });
-
-    window.addEventListener('popstate', function (e) {
-        // e.state is equal to the data-attribute of the last image we clicked
-        if (e.state == null || e.state == "Portfolio") {
-            //animateToHomepage();
-            animatePages(".main-page.page-current", "#portfolio");
-        }
     });
 
     setPageScroll();
@@ -493,33 +607,7 @@ $(document).ready(function () {
     });
 
     $(".menu-item").click(function () {
-        var currActive = $(".menu-item.active");
-        var newActive = $(this);
-
-        var pageFrom = currActive.attr("data-page");
-        var pageTo = newActive.attr("data-page");
-        var options = {
-            beforeAnimStart: function () { },
-            onAnimEnd: function () { }
-        };
-
-        if ($(".menu-item").index(currActive) > $(".menu-item").index(newActive)) {
-            options.animation = "Fade Right / Fade Left";
-        }
-        else {
-            options.animation = "Fade Left / Fade Right";
-        }
-
-        //TODO: Push to history, change URL
-        //TODO: Add fade-in for blog
-
-        currActive.removeClass("active");
-        newActive.addClass("active");
-
-        $("#side-menu .close").click();
-
-        setTimeout(function () {
-            animatePages(pageFrom, pageTo, options);
-        }, 400);
+        $(".menu-item.active").removeClass("active");
+        $(this).addClass("active");
     });
 });

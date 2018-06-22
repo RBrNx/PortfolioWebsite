@@ -197,6 +197,8 @@ body #website-container #side-menu .menu-item {
   height: 45px;
   margin-top: 35px;
   font-size: 26px;
+  text-decoration: none;
+  color: #cacaca;
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -376,6 +378,22 @@ body #website-container .page-current {
 @media (min-width: 1200px) {
   .loading-overlay img {
     width: auto;
+  }
+}
+@keyframes scroll {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, 25px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
 @keyframes spin {
@@ -661,8 +679,6 @@ body #website-container .page-current {
 #portfolio #portfolio-grid-page .main-container .title-container {
   margin: 130px 10% 30px 10%;
   text-align: center;
-  opacity: 0;
-  transform: translateY(-75px);
 }
 @media (min-width: 1200px) {
   #portfolio #portfolio-grid-page .main-container .title-container {
@@ -699,7 +715,6 @@ body #website-container .page-current {
 #portfolio #portfolio-grid-page .main-container .portfolio-grid {
   margin: 0 30px;
   min-height: 900px;
-  opacity: 0;
 }
 @media (min-width: 1200px) {
   #portfolio #portfolio-grid-page .main-container .portfolio-grid {

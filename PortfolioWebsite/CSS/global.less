@@ -1,13 +1,14 @@
-﻿//@maingrey: #3D4040;
-@maingrey: #2a2a2a;
-//@red: #c12f39;
+﻿@maingrey: #2a2a2a;
 @red: #c32626;
 @grey: #fbfbfb;
 @lightergrey: #565555;
-//@darkergrey: #2d2d2d;
 @darkergrey: #232323;
 @bodytext: #8a8a8a;
 @headingtext: #cacaca;
+
+@titleFontSize: 50px;
+@headingFontSize: 38px;
+@bodyFontSize: 21px;
 
 .for-phone-only(@rules) {
     @media (max-width: 599px) {
@@ -248,6 +249,8 @@ body {
                 height: 45px;
                 margin-top: 35px;
                 font-size: 26px;
+                text-decoration: none;
+                color: @headingtext;
                 .noselect;
 
                 &:after {
@@ -440,6 +443,26 @@ body {
         .for-desktop-up({
             width: auto;
         });
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translate(-50%, 0);
+        opacity: 0
+    }
+
+    40% {
+        opacity: 1
+    }
+
+    80% {
+        transform: translate(-50%, 25px);
+        opacity: 0
+    }
+
+    100% {
+        opacity: 0
     }
 }
 
