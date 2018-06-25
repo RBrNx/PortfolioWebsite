@@ -33,6 +33,15 @@ var repositories = [];
 var imgManager = new imageManager({ "onEmpty": imageManagerOnEmpty });
 var lastScrollTop = 0;
 var pageLoaded = false;
+var breakpoint = {};
+
+breakpoint.refreshValue = function () {
+    this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
+};
+
+$(window).resize(function () {
+    breakpoint.refreshValue();
+}).resize()
 
 function setPageScroll(scrollTop) {
     if (scrollTop) lastScrollTop = scrollTop;
@@ -114,37 +123,49 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
     imgManager.addImage(imageMain, infoJSON.imageMain);
     imgManager.addImage(imageDrop, infoJSON.imageDrop);
 
-    function gridItemOnClick(){
+    function gridItemOnClick() {
+        event.stopPropagation();
+
         var gridItem = $(this).parents(".grid-item");
         var pagename = gridItem.attr("data-pagename");
 
-        loadRepoPage(gridItem);
+        gridItem.find(".captions, .caption-button").off("click");
 
-        var currURL = window.location.href;
-        history.pushState(pagename, null, currURL + "#" + pagename);
+        page("/Portfolio/" + pagename);
+
+        //loadRepoPage(gridItem);
+
+        //var currURL = window.location.href;
+        //history.pushState(pagename, null, currURL + "#" + pagename);
     }
 
     gridItem.click(function (event) {
         event.stopPropagation();
-        var item = $(this);
-        var lastItem = $(".grid-item.clicked");
 
-        lastItem.removeClass("clicked");
-        setTimeout(function () { lastItem.removeClass("finishedEnter") }, 900);
+        if(breakpoint.value == "desktop"){
+            gridItemOnClick();
+        }
+        else {
+            var item = $(this);
+            var lastItem = $(".grid-item.clicked");
 
-        item.addClass("clicked");
-        setTimeout(function () { item.addClass("finishedEnter") }, 900);
+            lastItem.removeClass("clicked");
+            setTimeout(function () { lastItem.removeClass("finishedEnter") }, 900);
 
-        item.find(".captions, .caption-button").off().click(gridItemOnClick);
+            item.addClass("clicked");
+            setTimeout(function () { item.addClass("finishedEnter") }, 900);
 
-        $(".main-container").off("click").click(function () {
-            var item = $(".grid-item.clicked");
-            item.removeClass("clicked");
-            setTimeout(function () { item.removeClass("finishedEnter") }, 900);
-        });
+            $(".main-container").off("click").click(function () {
+                var item = $(".grid-item.clicked");
+                item.removeClass("clicked");
+                setTimeout(function () { item.removeClass("finishedEnter") }, 900);
+            });
+        }
+
+        $(this).find(".captions, .caption-button").off().click(gridItemOnClick);
     });
 
-    gridItem.find(".captions").click(gridItemOnClick);
+    //gridItem.find(".captions").click(gridItemOnClick);
 }
 
 function loadRepoPage(portfolioItem) {
@@ -189,50 +210,6 @@ function loadRepoPage(portfolioItem) {
         var link = $("<a href='" + websiteJSON.links[i].link + "' target='_blank'>" + websiteJSON.links[i].linkText + "</a>").appendTo("#portfolio-item-page #page-wrapper .info .links");
         $(linkIcon).prependTo(link);
     }
-
-    setTimeout(function () {
-        $(".portfolio-home").addClass("show").click(function () {
-            animatePages("#portfolio-item-page", "#portfolio-grid-page", {
-                animation: "Scale Up / Scale Up",
-                beforeAnimStart: function () {
-                    $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-                    $(".carousel").css({ "height": "400px" });
-                },
-                onAnimEnd: function () {
-                    $(".carousel").slick("unslick");
-                    setPageScroll(0);
-                }
-            });
-            history.pushState("Portfolio", null, "Portfolio");
-            $(this).removeClass("show").off("click");
-        });
-    }, 800);
-
-    //animateToSubpage();
-    animatePages("#portfolio-grid-page", "#portfolio-item-page", {
-        animation: "Scale Down / Scale Down",
-        beforeAnimStart: function () {
-            $(".carousel").slick({
-                arrows: true,
-                swipe: true,
-                //infinite: true,
-                dots: true,
-                speed: 500
-            });
-            $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
-
-            var carouselHeight = 0;
-            $(".carousel").find("img").each(function () {
-                if ($(this).height() > carouselHeight) carouselHeight = $(this).height();
-            });
-            $(".carousel").css({ "height": carouselHeight });
-
-            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-        },
-        onAnimEnd: function () {
-            setPageScroll(0);
-        }
-    });
 }
 
 function b64DecodeUnicode(str) {
@@ -333,7 +310,7 @@ function getNavigationType(urlFrom, urlTo) {
     var urlFromSplit = urlFrom.split("/");
     var urlToSplit = urlTo.split("/");
 
-    if (urlFromSplit[1] != urlToSplit[1]) return "fromMain";
+    if (urlFromSplit[1].toLowerCase() != urlToSplit[1].toLowerCase()) return "fromMain";
 
     return "fromSub";
 }
@@ -356,7 +333,7 @@ function navigateToPortfolioGrid(ctx, next) {
     var type = getNavigationType(urlFrom, urlTo);
 
     var pageFrom = null;
-    var pageTo = "#portfolio";
+    var pageTo = null;
     var animation = null;
     var beforeAnimStart = function () { };
     var onAnimEnd = function () { };
@@ -369,6 +346,7 @@ function navigateToPortfolioGrid(ctx, next) {
     else if(type == "fromSub") {
         animation = "Scale Up / Scale Up";
         pageFrom = ".sub-page.page-current";
+        pageTo = "#portfolio-grid-page";
         beforeAnimStart = function () {
             $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
             $(".carousel").css({ "height": "500px" });
@@ -381,6 +359,11 @@ function navigateToPortfolioGrid(ctx, next) {
     else if (type == "fromMain") {
         animation = "Fade Right / Fade Left";
         pageFrom = ".main-page.page-current";
+        pageTo = "#portfolio";
+        beforeAnimStart = function () {
+            $("#portfolio-item-page").removeClass("page-current");
+            $("#portfolio-grid-page").addClass("page-current");
+        }
         onAnimEnd = function () {
             setPageScroll(0);
         };
@@ -393,72 +376,86 @@ function navigateToPortfolioGrid(ctx, next) {
     });
 }
 
-function navigateToPortfolioItem(type, ctx, next) {
+function navigateToPortfolioItem(ctx, next) {
     var navPage = ctx.params.page;
     var gridItem = $("#portfolio-grid-page .grid-item[data-pagename='" + navPage + "']");
 
     if (gridItem.length > 0) {
         loadRepoPage(gridItem);
+
+        var urlFrom = ctx.state.currURL;
+        var urlTo = ctx.path;
+        var type = getNavigationType(urlFrom, urlTo);
+
+        var pageFrom = null;
+        var pageTo = null;
+        var animation = null;
+        var beforeAnimStart = function () { };
+        var onAnimEnd = function () { };
+
+        setTimeout(function () {
+            $(".portfolio-home").addClass("show").click(function () {
+                $(this).removeClass("show").off("click");
+            });
+        }, 800);
+
+        function setupCarousel() {
+            $(".carousel").slick({
+                arrows: true,
+                swipe: true,
+                //infinite: true,
+                dots: true,
+                speed: 500
+            });
+            $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
+
+            var carouselHeight = 0;
+            $(".carousel").find("img").each(function () {
+                if ($(this).height() > carouselHeight) carouselHeight = $(this).height();
+            });
+            $(".carousel").css({ "height": carouselHeight });
+
+            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+            $("#portfolio-item-page").scrollTop(0);
+        }
+
+        if (type == "onLoad") {
+            $("#portfolio-grid-page").removeClass("page-current");
+            $("#portfolio-item-page").addClass("page-current");
+            setupCarousel();
+            return;
+        }
+        else if (type == "fromSub" || type == "fromMain") {
+            animation = "Scale Down / Scale Down";
+            pageFrom = "#portfolio .sub-page.page-current";
+            pageTo = "#portfolio-item-page";
+            beforeAnimStart = function () {
+                setupCarousel();
+            };
+            onAnimEnd = function () {
+                setPageScroll(0);
+            };
+        }
+
+        animatePages(pageFrom, pageTo, {
+            animation: animation,
+            beforeAnimStart: beforeAnimStart,
+            onAnimEnd: onAnimEnd
+        });
     }
     else {
-        page("/portfolio");
+        page("/Portfolio");
     }
-}
-
-function navigateToBlogGrid(ctx, next) {
-    var urlFrom = ctx.state.currURL;
-    var urlTo = ctx.path;
-    var type = getNavigationType(urlFrom, urlTo);
-
-    var pageFrom = null;
-    var pageTo = "#blog";
-    var animation = null;
-    var beforeAnimStart = function () { };
-    var onAnimEnd = function () { };
-
-    if (type == "onLoad") {
-        $(".main-page.page-current").removeClass("page-current");
-        $("#blog").addClass("page-current");
-
-        $(".menu-item.active").removeClass("active");
-        $(".menu-item[href='./blog']").addClass("active");
-
-        $("#blog-grid-page .blog-grid").addClass("fadeInUp");
-        $("#blog-grid-page header").addClass("fadeInDown");
-        return;
-    }
-    else if (type == "fromSub") {
-        animation = "Scale Up / Scale Up";
-        pageFrom = ".sub-page.page-current";
-        beforeAnimStart = function () {
-            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-        };
-        onAnimEnd = function () {
-            setPageScroll(0);
-        };
-    }
-    else if (type == "fromMain") {
-        animation = "Fade Left / Fade Right";
-        pageFrom = ".main-page.page-current";
-        onAnimEnd = function () {
-            setPageScroll(0);
-        };
-    }
-
-    animatePages(pageFrom, pageTo, {
-        animation: animation,
-        beforeAnimStart: beforeAnimStart,
-        onAnimEnd: onAnimEnd
-    });
 }
 
 function onLoadComplete() {
     setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
 
     page("/", preNavigation, navigateToPortfolioGrid);
-    page("/portfolio", preNavigation, navigateToPortfolioGrid);
-    page("/portfolio/:page", preNavigation, navigateToPortfolioItem);
-    page("/blog", preNavigation, navigateToBlogGrid);
+    page("/Portfolio", preNavigation, navigateToPortfolioGrid);
+    page("/Portfolio/:page", preNavigation, navigateToPortfolioItem);
+    page("/Blog", preNavigation, navigateToBlogGrid);
+    page("/Blog/:page", preNavigation, navigateToBlogItem);
     page('*', preNavigation, navigateToPortfolioGrid)
     page();
 }

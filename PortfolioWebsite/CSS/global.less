@@ -78,6 +78,23 @@ body {
     background-color: #333;
     overflow: hidden;
 
+    &:before{
+        content: "smartphone";
+        display: none;
+
+        .for-tablet-portrait-up({
+            content: "tablet-portrait";
+        });
+
+         .for-tablet-landscape-up({
+             content: "tablet-landscape";
+         });
+
+        .for-desktop-up({
+            content: "desktop";
+        })
+    }
+
     #website-container{
 
         #header {

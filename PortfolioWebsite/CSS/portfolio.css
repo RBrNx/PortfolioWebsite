@@ -49,6 +49,25 @@ body {
   background-color: #333;
   overflow: hidden;
 }
+body:before {
+  content: "smartphone";
+  display: none;
+}
+@media (min-width: 600px) {
+  body:before {
+    content: "tablet-portrait";
+  }
+}
+@media (min-width: 900px) {
+  body:before {
+    content: "tablet-landscape";
+  }
+}
+@media (min-width: 1200px) {
+  body:before {
+    content: "desktop";
+  }
+}
 body #website-container #header {
   position: fixed;
   width: 100%;

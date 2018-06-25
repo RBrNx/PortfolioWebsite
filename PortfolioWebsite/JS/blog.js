@@ -40,16 +40,124 @@ function addBlogToGrid(blogJSON) {
     var captionButton = $("<div class='caption-button'>Learn More<i class='fas fa-angle-right'></i></div>").appendTo(captionContainer);   
 
     function gridItemOnClick() {
+        event.stopPropagation();
+
         var gridItem = $(this);
         var pagename = gridItem.attr("data-pagename");
 
-        loadBlog(gridItem);
-
-        var currURL = window.location.href;
-        history.pushState(pagename, null, currURL + "#" + pagename);
+        page("/Blog/" + pagename);
     }
 
     gridItem.click(gridItemOnClick);
+}
+
+function navigateToBlogGrid(ctx, next) {
+    var urlFrom = ctx.state.currURL;
+    var urlTo = ctx.path;
+    var type = getNavigationType(urlFrom, urlTo);
+
+    var pageFrom = null;
+    var pageTo = null;
+    var animation = null;
+    var beforeAnimStart = function () { };
+    var onAnimEnd = function () { };
+
+    if (type == "onLoad") {
+        $(".main-page.page-current").removeClass("page-current");
+        $("#blog").addClass("page-current");
+
+        $(".menu-item.active").removeClass("active");
+        $(".menu-item[href='./blog']").addClass("active");
+
+        $("#blog-grid-page .blog-grid").addClass("fadeInUp");
+        $("#blog-grid-page header").addClass("fadeInDown");
+        return;
+    }
+    else if (type == "fromSub") {
+        animation = "Scale Up / Scale Up";
+        pageFrom = ".sub-page.page-current";
+        pageTo = "#blog-grid-page"
+        beforeAnimStart = function () {
+            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+        };
+        onAnimEnd = function () {
+            setPageScroll(0);
+        };
+    }
+    else if (type == "fromMain") {
+        animation = "Fade Left / Fade Right";
+        pageFrom = ".main-page.page-current";
+        pageTo = "#blog";
+        onAnimEnd = function () {
+            setPageScroll(0);
+        };
+    }
+
+    animatePages(pageFrom, pageTo, {
+        animation: animation,
+        beforeAnimStart: beforeAnimStart,
+        onAnimEnd: onAnimEnd
+    });
+}
+
+function navigateToBlogItem(ctx, next) {
+    var navPage = ctx.params.page;
+    var gridItem = $("#blog-grid-page .grid-item[data-pagename='" + navPage + "']");
+
+    if (gridItem.length > 0) {
+        loadBlog(gridItem);
+
+        var urlFrom = ctx.state.currURL;
+        var urlTo = ctx.path;
+        var type = getNavigationType(urlFrom, urlTo);
+
+        var pageFrom = null;
+        var pageTo = null;
+        var animation = null;
+        var beforeAnimStart = function () { };
+        var onAnimEnd = function () { };
+
+        setTimeout(function () {
+            $(".blog-home").addClass("show").click(function () {
+                $(this).removeClass("show").off("click");
+            });
+        }, 800);
+
+        if (type == "onLoad") {
+            $(".main-page.page-current").removeClass("page-current");
+            $("#blog").addClass("page-current");
+
+            $(".menu-item.active").removeClass("active");
+            $(".menu-item[href='./blog']").addClass("active");
+
+            $("#blog-grid-page").removeClass("page-current");
+            $("#blog-page").addClass("page-current");
+
+            setPageScroll(0);
+            return;
+        }
+        else if (type == "fromSub" || type == "fromMain") {
+            animation = "Scale Down / Scale Down";
+            pageFrom = "#blog .sub-page.page-current";
+            pageTo = "#blog-page";
+            beforeAnimStart = function () {
+                $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+                $("#blog-page").scrollTop(0);
+            }
+            onAnimEnd = function () {
+                setPageScroll(0);
+            };
+        }
+
+        animatePages(pageFrom, pageTo, {
+            animation: animation,
+            beforeAnimStart: beforeAnimStart,
+            onAnimEnd: onAnimEnd
+        });
+    }
+    else {
+        page("/Blog");
+    }
 }
 
 function loadBlog(gridItem) {
@@ -67,20 +175,20 @@ function loadBlog(gridItem) {
     });
 
 
-    setTimeout(function () {
-        $(".blog-home").addClass("show").click(function () {
-            animatePages("#blog-page", "#blog-grid-page", {
-                animation: "Scale Up / Scale Up",
-            });
-            history.pushState("Blog", null, "Blog");
-            $(this).removeClass("show").off("click");
-        });
-    }, 800);
+    //setTimeout(function () {
+    //    $(".blog-home").addClass("show").click(function () {
+    //        animatePages("#blog-page", "#blog-grid-page", {
+    //            animation: "Scale Up / Scale Up",
+    //        });
+    //        history.pushState("Blog", null, "Blog");
+    //        $(this).removeClass("show").off("click");
+    //    });
+    //}, 800);
 
-    animatePages("#blog-grid-page", "#blog-page", {
-        animation: "Scale Down / Scale Down",
-        onAnimEnd: function () {
-            setPageScroll(0);
-        }
-    });
+    //animatePages("#blog-grid-page", "#blog-page", {
+    //    animation: "Scale Down / Scale Down",
+    //    onAnimEnd: function () {
+    //        setPageScroll(0);
+    //    }
+    //});
 }
