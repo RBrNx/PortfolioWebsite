@@ -33,11 +33,20 @@ var repositories = [];
 var imgManager = new imageManager({ "onEmpty": imageManagerOnEmpty });
 var lastScrollTop = 0;
 var pageLoaded = false;
+var breakpoint = {};
+
+breakpoint.refreshValue = function () {
+    this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
+};
+
+$(window).resize(function () {
+    breakpoint.refreshValue();
+}).resize()
 
 function setPageScroll(scrollTop) {
     if (scrollTop) lastScrollTop = scrollTop;
 
-    $(".page-current").off("scroll").scroll(function (event) {
+    $(".sub-page.page-current").off("scroll").scroll(function (event) {
         var st = $(this).scrollTop();
 
         if (st > lastScrollTop) {
@@ -46,6 +55,13 @@ function setPageScroll(scrollTop) {
             $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
         }
         lastScrollTop = st;
+
+        if ($("#blog-page").scrollTop() >= 200) {
+            $(".mouse-scroll").addClass("hidden");
+        }
+        else {
+            $(".mouse-scroll").removeClass("hidden");
+        }
     });
 }
 
@@ -107,37 +123,49 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
     imgManager.addImage(imageMain, infoJSON.imageMain);
     imgManager.addImage(imageDrop, infoJSON.imageDrop);
 
-    function gridItemOnClick(){
+    function gridItemOnClick() {
+        event.stopPropagation();
+
         var gridItem = $(this).parents(".grid-item");
         var pagename = gridItem.attr("data-pagename");
 
-        loadRepoPage(gridItem);
+        gridItem.find(".captions, .caption-button").off("click");
 
-        var currURL = window.location.href;
-        history.pushState(pagename, null, currURL + "#" + pagename);
+        page("/Portfolio/" + pagename);
+
+        //loadRepoPage(gridItem);
+
+        //var currURL = window.location.href;
+        //history.pushState(pagename, null, currURL + "#" + pagename);
     }
 
     gridItem.click(function (event) {
         event.stopPropagation();
-        var item = $(this);
-        var lastItem = $(".grid-item.clicked");
 
-        lastItem.removeClass("clicked");
-        setTimeout(function () { lastItem.removeClass("finishedEnter") }, 900);
+        if(breakpoint.value == "desktop"){
+            gridItemOnClick();
+        }
+        else {
+            var item = $(this);
+            var lastItem = $(".grid-item.clicked");
 
-        item.addClass("clicked");
-        setTimeout(function () { item.addClass("finishedEnter") }, 900);
+            lastItem.removeClass("clicked");
+            setTimeout(function () { lastItem.removeClass("finishedEnter") }, 900);
 
-        item.find(".captions, .caption-button").off().click(gridItemOnClick);
+            item.addClass("clicked");
+            setTimeout(function () { item.addClass("finishedEnter") }, 900);
 
-        $(".main-container").off("click").click(function () {
-            var item = $(".grid-item.clicked");
-            item.removeClass("clicked");
-            setTimeout(function () { item.removeClass("finishedEnter") }, 900);
-        });
+            $(".main-container").off("click").click(function () {
+                var item = $(".grid-item.clicked");
+                item.removeClass("clicked");
+                setTimeout(function () { item.removeClass("finishedEnter") }, 900);
+            });
+        }
+
+        $(this).find(".captions, .caption-button").off().click(gridItemOnClick);
     });
 
-    gridItem.find(".captions").click(gridItemOnClick);
+    //gridItem.find(".captions").click(gridItemOnClick);
 }
 
 function loadRepoPage(portfolioItem) {
@@ -152,7 +180,7 @@ function loadRepoPage(portfolioItem) {
 
     $("#portfolio-item-page #page-wrapper .carousel").empty();
     for (var i = 0; i < websiteJSON.carouselImages.length; i++) {
-        $("<div class='image'><img src='img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo("#portfolio-item-page #page-wrapper .carousel")
+        $("<div class='image'><img src='/img/" + websiteJSON.carouselImages[i] + "'/></div>").appendTo("#portfolio-item-page #page-wrapper .carousel")
     }
 
     $("#portfolio-item-page #page-wrapper .info .description .text").html(websiteJSON.aboutProject);
@@ -182,50 +210,6 @@ function loadRepoPage(portfolioItem) {
         var link = $("<a href='" + websiteJSON.links[i].link + "' target='_blank'>" + websiteJSON.links[i].linkText + "</a>").appendTo("#portfolio-item-page #page-wrapper .info .links");
         $(linkIcon).prependTo(link);
     }
-
-    setTimeout(function () {
-        $(".portfolio-home").addClass("show").click(function () {
-            animatePages("#portfolio-item-page", "#portfolio-grid-page", {
-                animation: "Scale Up / Scale Up",
-                beforeAnimStart: function () {
-                    $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-                    $(".carousel").css({ "height": "400px" });
-                },
-                onAnimEnd: function () {
-                    $(".carousel").slick("unslick");
-                    setPageScroll(0);
-                }
-            });
-            history.pushState("Portfolio", null, "Portfolio");
-            $(this).removeClass("show").off("click");
-        });
-    }, 800);
-
-    //animateToSubpage();
-    animatePages("#portfolio-grid-page", "#portfolio-item-page", {
-        animation: "Scale Down / Scale Down",
-        beforeAnimStart: function () {
-            $(".carousel").slick({
-                arrows: true,
-                swipe: true,
-                //infinite: true,
-                dots: true,
-                speed: 500
-            });
-            $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
-
-            var carouselHeight = 0;
-            $(".carousel").find("img").each(function () {
-                if ($(this).height() > carouselHeight) carouselHeight = $(this).height();
-            });
-            $(".carousel").css({ "height": carouselHeight });
-
-            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
-        },
-        onAnimEnd: function () {
-            setPageScroll(0);
-        }
-    });
 }
 
 function b64DecodeUnicode(str) {
@@ -319,28 +303,161 @@ function animateBond() {
     });
 }
 animateBond();
-//$(".loading-overlay").hide();
-//$(".portfolio-grid").css("opacity", "1");
 
-function onLoadComplete() {
-    var urlPath = window.location.pathname;
-    var urlHash = window.location.hash.replace("#", "");
+function getNavigationType(urlFrom, urlTo) {
+    if (urlFrom === urlTo) return "onLoad";
 
-    //$(".circle-main").removeClass("scale-mid").addClass("scale-max");
-    //$(".loading-overlay").css("opacity", "0");
-    setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
-    $(".portfolio-grid").addClass("fadeInUp");
-    $(".title-container").addClass("fadeInDown");
+    var urlFromSplit = urlFrom.split("/");
+    var urlToSplit = urlTo.split("/");
 
-    if (urlHash != "") {
-        if (urlPath.startsWith("/Portfolio")) {
-            var portfolioItem = $(".grid-item[data-pagename='" + urlHash + "']");
-            loadRepoPage(portfolioItem);
-        }
+    if (urlFromSplit[1].toLowerCase() != urlToSplit[1].toLowerCase()) return "fromMain";
+
+    return "fromSub";
+}
+
+function preNavigation(ctx, next) {
+    ctx.state.currURL = window.location.pathname;
+
+    if ($("#header").hasClass("animate-left")) {
+        $("#side-menu .close").click();
+        setTimeout(next, 400);
     }
     else {
-
+        next();
     }
+}
+
+function navigateToPortfolioGrid(ctx, next) {
+    var urlFrom = ctx.state.currURL;
+    var urlTo = ctx.path;
+    var type = getNavigationType(urlFrom, urlTo);
+
+    var pageFrom = null;
+    var pageTo = null;
+    var animation = null;
+    var beforeAnimStart = function () { };
+    var onAnimEnd = function () { };
+
+    if (type == "onLoad") {
+        $("#portfolio-grid-page .portfolio-grid").addClass("fadeInUp");
+        $("#portfolio-grid-page .title-container").addClass("fadeInDown");
+        return;
+    }
+    else if(type == "fromSub") {
+        animation = "Scale Up / Scale Up";
+        pageFrom = ".sub-page.page-current";
+        pageTo = "#portfolio-grid-page";
+        beforeAnimStart = function () {
+            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+            $(".carousel").css({ "height": "500px" });
+        };
+        onAnimEnd = function () {
+            $(".carousel").slick("unslick");
+            setPageScroll(0);
+        };
+    }
+    else if (type == "fromMain") {
+        animation = "Fade Right / Fade Left";
+        pageFrom = ".main-page.page-current";
+        pageTo = "#portfolio";
+        beforeAnimStart = function () {
+            $("#portfolio-item-page").removeClass("page-current");
+            $("#portfolio-grid-page").addClass("page-current");
+        }
+        onAnimEnd = function () {
+            setPageScroll(0);
+        };
+    }
+
+    animatePages(pageFrom, pageTo, {
+        animation: animation,
+        beforeAnimStart: beforeAnimStart,
+        onAnimEnd: onAnimEnd
+    });
+}
+
+function navigateToPortfolioItem(ctx, next) {
+    var navPage = ctx.params.page;
+    var gridItem = $("#portfolio-grid-page .grid-item[data-pagename='" + navPage + "']");
+
+    if (gridItem.length > 0) {
+        loadRepoPage(gridItem);
+
+        var urlFrom = ctx.state.currURL;
+        var urlTo = ctx.path;
+        var type = getNavigationType(urlFrom, urlTo);
+
+        var pageFrom = null;
+        var pageTo = null;
+        var animation = null;
+        var beforeAnimStart = function () { };
+        var onAnimEnd = function () { };
+
+        setTimeout(function () {
+            $(".portfolio-home").addClass("show").click(function () {
+                $(this).removeClass("show").off("click");
+            });
+        }, 800);
+
+        function setupCarousel() {
+            $(".carousel").slick({
+                arrows: true,
+                swipe: true,
+                //infinite: true,
+                dots: true,
+                speed: 500
+            });
+            $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
+
+            var carouselHeight = 0;
+            $(".carousel").find("img").each(function () {
+                if ($(this).height() > carouselHeight) carouselHeight = $(this).height();
+            });
+            $(".carousel").css({ "height": carouselHeight });
+
+            $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
+            $("#portfolio-item-page").scrollTop(0);
+        }
+
+        if (type == "onLoad") {
+            $("#portfolio-grid-page").removeClass("page-current");
+            $("#portfolio-item-page").addClass("page-current");
+            setupCarousel();
+            return;
+        }
+        else if (type == "fromSub" || type == "fromMain") {
+            animation = "Scale Down / Scale Down";
+            pageFrom = "#portfolio .sub-page.page-current";
+            pageTo = "#portfolio-item-page";
+            beforeAnimStart = function () {
+                setupCarousel();
+            };
+            onAnimEnd = function () {
+                setPageScroll(0);
+            };
+        }
+
+        animatePages(pageFrom, pageTo, {
+            animation: animation,
+            beforeAnimStart: beforeAnimStart,
+            onAnimEnd: onAnimEnd
+        });
+    }
+    else {
+        page("/Portfolio");
+    }
+}
+
+function onLoadComplete() {
+    setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
+
+    page("/", preNavigation, navigateToPortfolioGrid);
+    page("/Portfolio", preNavigation, navigateToPortfolioGrid);
+    page("/Portfolio/:page", preNavigation, navigateToPortfolioItem);
+    page("/Blog", preNavigation, navigateToBlogGrid);
+    page("/Blog/:page", preNavigation, navigateToBlogItem);
+    page('*', preNavigation, navigateToPortfolioGrid)
+    page();
 }
 
 function sortPortfolio() {
@@ -407,6 +524,8 @@ function imageManager(options) {
 }
 
 function animatePages(fromPage, toPage, options) {
+    var _fromP = $(fromPage);
+    var _toP = $(toPage);
     var _options = options || { animation: "Fade Left / Fade Right" };
     var fromAnimation = null;
     var toAnimation = null;
@@ -430,7 +549,7 @@ function animatePages(fromPage, toPage, options) {
             break;
     }
     
-    $(toPage).addClass("page-current");
+    _toP.addClass("page-current");
 
 
     if (_options.beforeAnimStart) {
@@ -438,13 +557,13 @@ function animatePages(fromPage, toPage, options) {
         func();
     }
 
-    $(fromPage).addClass(fromAnimation).on("animationend", function () {
-        $(fromPage).off("animationend");
-        $(fromPage).removeClass("page-current " + fromAnimation);
+    _fromP.addClass(fromAnimation).on("animationend", function () {
+        _fromP.off("animationend");
+        _fromP.removeClass("page-current " + fromAnimation);
     });
     $(toPage).addClass(toAnimation + " pt-page-delay300").on("animationend", function () {
-        $(toPage).off("animationend");
-        $(toPage).removeClass(toAnimation + " pt-page-delay300");
+        _toP.off("animationend");
+        _toP.removeClass(toAnimation + " pt-page-delay300");
 
         if (_options.onAnimEnd) {
             var func = _options.onAnimEnd;
@@ -454,7 +573,7 @@ function animatePages(fromPage, toPage, options) {
 }
 
 $(document).ready(function () {
-    $.getJSON("github.json", function (data) {
+    $.getJSON("/github.json", function (data) {
         sessionStorage.setItem("token", data.token);
 
         $.when(getRepos()).done(function () {
@@ -465,14 +584,6 @@ $(document).ready(function () {
                 getWebsiteInfoFromRepo(repos[i].name, repos[i].id);
             }
         });
-    });
-
-    window.addEventListener('popstate', function (e) {
-        // e.state is equal to the data-attribute of the last image we clicked
-        if (e.state == null || e.state == "Portfolio") {
-            //animateToHomepage();
-            animatePages(".main-page.page-current", "#portfolio");
-        }
     });
 
     setPageScroll();
@@ -493,33 +604,7 @@ $(document).ready(function () {
     });
 
     $(".menu-item").click(function () {
-        var currActive = $(".menu-item.active");
-        var newActive = $(this);
-
-        var pageFrom = currActive.attr("data-page");
-        var pageTo = newActive.attr("data-page");
-        var options = {
-            beforeAnimStart: function () { },
-            onAnimEnd: function () { }
-        };
-
-        if ($(".menu-item").index(currActive) > $(".menu-item").index(newActive)) {
-            options.animation = "Fade Right / Fade Left";
-        }
-        else {
-            options.animation = "Fade Left / Fade Right";
-        }
-
-        //TODO: Push to history, change URL
-        //TODO: Add fade-in for blog
-
-        currActive.removeClass("active");
-        newActive.addClass("active");
-
-        $("#side-menu .close").click();
-
-        setTimeout(function () {
-            animatePages(pageFrom, pageTo, options);
-        }, 400);
+        $(".menu-item.active").removeClass("active");
+        $(this).addClass("active");
     });
 });

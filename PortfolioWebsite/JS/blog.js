@@ -12,15 +12,16 @@ $(document).ready(function () {
         blogs.sort(dateSort);
 
         for (var i = 0; i < blogs.length; i++) {
-            addBlogToGrid(blogs[i]);
+            addBlogToGrid(blogs[i], i);
         }
     });
 });
 
-function addBlogToGrid(blogJSON) {
+function addBlogToGrid(blogJSON, index) {
     if (blogJSON.show !== true) return;
 
-    var column = $("#blog .grid-container-left");
+    var column = (breakpoint.value == "smartphone") ? $("#blog .grid-container-phone") :
+        (index % 2 == 0) ? $("#blog .grid-container-left") : $("#blog .grid-container-right");
 
     var gridItem = $("<div class='grid-item' data-id='" + blogJSON.id + "' data-pagename='" + blogJSON.title.replace(/ /g, "-") + "'></div>").appendTo(column);
     if (blogJSON.imageMain !== "") {
@@ -34,10 +35,10 @@ function addBlogToGrid(blogJSON) {
         var main = $("<div class='main'><div class='text'>" + blogJSON.titleHTML + "</div></div>").appendTo(gridItem);
     }
     
-    var captionContainer = $("<div class='captions'></div>").appendTo(gridItem);
-    var titleCaption = $("<div class='title-caption'>" + blogJSON.title + "</div>").appendTo(captionContainer);
-    var descriptionCaption = $("<div class='description-caption'>" + blogJSON.description + "</div>").appendTo(captionContainer);
-    var captionButton = $("<div class='caption-button'>Learn More<i class='fas fa-angle-right'></i></div>").appendTo(captionContainer);   
+    //var captionContainer = $("<div class='captions'></div>").appendTo(gridItem);
+    //var titleCaption = $("<div class='title-caption'>" + blogJSON.title + "</div>").appendTo(captionContainer);
+    //var descriptionCaption = $("<div class='description-caption'>" + blogJSON.description + "</div>").appendTo(captionContainer);
+    //var captionButton = $("<div class='caption-button'>Learn More<i class='fas fa-angle-right'></i></div>").appendTo(captionContainer);   
 
     function gridItemOnClick() {
         event.stopPropagation();
@@ -66,8 +67,8 @@ function navigateToBlogGrid(ctx, next) {
         $(".main-page.page-current").removeClass("page-current");
         $("#blog").addClass("page-current");
 
-        $(".menu-item.active").removeClass("active");
-        $(".menu-item[href='./blog']").addClass("active");
+        $(".menu-item.active, .nav-item.active").removeClass("active");
+        $(".menu-item[href='/Blog'], .nav-item[href='/Blog']").addClass("active");
 
         $("#blog-grid-page .blog-grid").addClass("fadeInUp");
         $("#blog-grid-page header").addClass("fadeInDown");
@@ -75,7 +76,7 @@ function navigateToBlogGrid(ctx, next) {
     }
     else if (type == "fromSub") {
         animation = "Scale Up / Scale Up";
-        pageFrom = ".sub-page.page-current";
+        pageFrom = "#blog .sub-page.page-current";
         pageTo = "#blog-grid-page"
         beforeAnimStart = function () {
             $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
@@ -127,8 +128,8 @@ function navigateToBlogItem(ctx, next) {
             $(".main-page.page-current").removeClass("page-current");
             $("#blog").addClass("page-current");
 
-            $(".menu-item.active").removeClass("active");
-            $(".menu-item[href='./blog']").addClass("active");
+            $(".menu-item.active, .nav-item.active").removeClass("active");
+            $(".menu-item[href='/Blog'], .nav-item[href='/Blog']").addClass("active");
 
             $("#blog-grid-page").removeClass("page-current");
             $("#blog-page").addClass("page-current");
@@ -172,23 +173,6 @@ function loadBlog(gridItem) {
         $("#blog-page .publish-date").text(new Date(currBlog.date).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" }));
 
         Prism.highlightAllUnder($("#blog-page")[0]);
+        new SimpleBar($('#blog-page')[0])
     });
-
-
-    //setTimeout(function () {
-    //    $(".blog-home").addClass("show").click(function () {
-    //        animatePages("#blog-page", "#blog-grid-page", {
-    //            animation: "Scale Up / Scale Up",
-    //        });
-    //        history.pushState("Blog", null, "Blog");
-    //        $(this).removeClass("show").off("click");
-    //    });
-    //}, 800);
-
-    //animatePages("#blog-grid-page", "#blog-page", {
-    //    animation: "Scale Down / Scale Down",
-    //    onAnimEnd: function () {
-    //        setPageScroll(0);
-    //    }
-    //});
 }

@@ -116,7 +116,7 @@
                 .title {
                     display: inline-block;
                     font-family: 'Fjalla One', sans-serif;
-                    font-size: 50px;
+                    font-size: @titleFontSize;
 
                     .for-desktop-up( {
                         font-size: 80px;
@@ -135,10 +135,10 @@
 
                 .subtitle {
                     font-family: Roboto;
-                    font-size: 18px;
+                    font-size: @bodyFontSize;
 
-                    .for-desktop-up( {
-                        font-size: 22px;
+                    .for-desktop-up({
+                        font-size: 26px;
                     });
                 }
             }
@@ -377,7 +377,7 @@
 
             .for-desktop-up({
                 padding-top: 120px;
-                max-width: 1010px;
+                max-width: 1200px;
             });
 
             #title {

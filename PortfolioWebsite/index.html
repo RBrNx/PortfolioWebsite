@@ -8,6 +8,7 @@
     <link href="/CSS/fontawesome-all.min.css" rel="stylesheet"/>
     <link href="/CSS/slick.css" rel="stylesheet"/>
     <link href="/CSS/slick-theme.css" rel="stylesheet" />
+    <link href="/CSS/simplebar.css" rel="stylesheet"/>
     <link href="/CSS/prism.css" rel="stylesheet" />
     <link href="/CSS/portfolio.css" rel="stylesheet" />
     <link href="/CSS/blog.css" rel="stylesheet" />
@@ -38,13 +39,13 @@
         <header id="header">
             <nav class="navbar">
                 <div class="navbar-title">
-                    <a href="Portfolio.html"><img src="/img/Redbaron Games Logo 2 - Small.png" /></a>
+                    <a href="/Portfolio"><img src="/img/Redbaron Games Logo 2 - Small.png" /></a>
                 </div>
                 <div class="navbar-items">
-                    <div class="nav-item active" data-page="#portfolio">Portfolio</div>
-                    <div class="nav-item" data-page="#about">About</div>
-                    <div class="nav-item" data-page="#blog">Blog</div>
-                    <div class="nav-item">CV</div>
+                    <a class="nav-item active" href="/Portfolio">Portfolio</a>
+                    <a class="nav-item" href="/Portfolio/Advent-Of-Code-Challenges">About</a>
+                    <a class="nav-item" href="/Blog">Blog</a>
+                    <a class="nav-item" href="/Portfolio">CV</a>
                 </div>
                 <div class="navbar-toggle">
                     <i class="fas fa-bars"></i>
@@ -56,12 +57,12 @@
             <a class="menu-item active" href="/Portfolio">Portfolio</a>
             <a class="menu-item" href="/Portfolio/Advent-Of-Code-Challenges">About</a>
             <a class="menu-item" href="/Blog">Blog</a>
-            <a class="menu-item" href="/">CV</a>
+            <a class="menu-item" href="/Portfolio">CV</a>
         </div>
 
         <div id="portfolio" class="main-page page-current">
             <a class="portfolio-home" href="/Portfolio"><i class="fas fa-th-large"></i></a>
-            <div class="sub-page page-current" id="portfolio-grid-page">
+            <div class="sub-page page-current" id="portfolio-grid-page" data-simplebar>
                 <div class="main-container">
                     <div class="title-container">
                         <div class="title">
@@ -87,8 +88,7 @@
                     <div class="icons"></div>
                 </footer>
             </div>
-            <div class="sub-page" id="portfolio-item-page">
-                <span class="close"><i class="fas fa-times"></i></span>
+            <div class="sub-page" id="portfolio-item-page" data-simplebar>
                 <div id="page-wrapper">
                     <div id="title"></div>
                     <div id="subtitle"></div>
@@ -116,16 +116,15 @@
         </div>
         <div id="blog" class="main-page">
             <a class="blog-home" href="/Blog"><i class="fas fa-th-large"></i></a>
-            <div class="sub-page page-current" id="blog-grid-page">
+            <div class="sub-page page-current" id="blog-grid-page" data-simplebar>
                 <header>
                     <div class="title">Code Blogs and Laboratory.</div>
                     <div class="subtitle">Research and Development almost as good as Q-Branch.</div>
                 </header>
                 <div class="blog-grid">
-                    <div class="grid-container-left">
-                        <div class="grid-item"></div>
-                    </div>
+                    <div class="grid-container-left"></div>
                     <div class="grid-container-right"></div>
+                    <div class="grid-container-phone"></div>
                 </div>
             </div>
             <div class="sub-page" id="blog-page">
@@ -135,7 +134,7 @@
     </div>
     <script src="/JS/jquery-3.2.1.min.js"></script>
     <script src="/JS/jquery.color-212.min.js"></script>
-    <script src="/JS/perfect-scrollbar.jquery.js"></script>
+    <script src="/JS/simplebar.js"></script>
     <script src="/JS/slick.min.js"></script>
     <script src="/JS/prism.js"></script>
     <script src="/JS/main.js"></script>

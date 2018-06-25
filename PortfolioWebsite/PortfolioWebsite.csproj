@@ -96,6 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="blogs\images\1\ErrorMessage.png" />
+    <Content Include="blogs\images\1\SQL.png" />
+    <Content Include="blogs\images\1\Visual Studio.png" />
     <Content Include="blogs\Logging1.html" />
     <Content Include="blogs\Logging2.html" />
     <Content Include="CSS\ajax-loader.gif" />
@@ -119,6 +121,7 @@
       <DependentUpon>portfolio.css</DependentUpon>
     </Content>
     <Content Include="CSS\prism.css" />
+    <Content Include="CSS\simplebar.css" />
     <Content Include="CSS\slick-theme.css" />
     <Content Include="CSS\slick.css" />
     <Content Include="img\AdventofCode.png" />
@@ -155,6 +158,7 @@
     <Content Include="JS\jquery.color-212.min.js" />
     <Content Include="JS\page.js" />
     <Content Include="JS\prism.js" />
+    <Content Include="JS\simplebar.js" />
     <Content Include="JS\slick.min.js" />
     <Content Include="JS\typeit.js" />
     <Content Include="packages.config" />

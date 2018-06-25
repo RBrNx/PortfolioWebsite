@@ -724,11 +724,11 @@ body #website-container .page-current {
 }
 #portfolio #portfolio-grid-page .main-container .title-container .subtitle {
   font-family: Roboto;
-  font-size: 18px;
+  font-size: 21px;
 }
 @media (min-width: 1200px) {
   #portfolio #portfolio-grid-page .main-container .title-container .subtitle {
-    font-size: 22px;
+    font-size: 26px;
   }
 }
 #portfolio #portfolio-grid-page .main-container .portfolio-grid {
@@ -974,7 +974,7 @@ body #website-container .page-current {
 @media (min-width: 1200px) {
   #portfolio #portfolio-item-page #page-wrapper {
     padding-top: 120px;
-    max-width: 1010px;
+    max-width: 1200px;
   }
 }
 #portfolio #portfolio-item-page #page-wrapper #title {

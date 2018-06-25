@@ -101,7 +101,8 @@
 
                 go
             </script>
-            <p></p>
+            <br />
+            <br />
             <div class="heading">NLog.Config Setup</div>
             <hr />
             <p>The last piece of the puzzle (for NLog at least) is to add some XML to the <code>NLog.Config</code> file. Earlier on I mentioned that NLog could log to multiple ‘targets’ at the same time, the <code>NLog.config</code> is where you set up these targets. Each <code>target</code> specifies <em>where</em> or <em>what</em> you want to log to, and each <code>rule</code> links a <code>target</code> to a Logger name. Inside the <code>targets</code> node add the following XML:</p>
@@ -165,6 +166,61 @@
                     </tbody>
                 </table>
             </p>
+            <p>Under the <code>rules</code> node you should add the following line of XML, making sure that the <code>writeTo</code> parameter matches the <code>name</code> parameter of the target we just added.</p>
+            <script type="text/plain" class="language-csharp">
+                Logger logger = LogManager.GetLogger("databaseLogger");
+            </script>
+            <p>again making sure that the name you pass to the <code>GetLogger</code> function is the same as the name parameter on the target we created!</p>
+            <p>However instead of having to create this instance each time you need to log something, I’d recommend creating a static Logger as a private member of the Class you are attempting to log in, this means you can simply use the one Logger instance each time.</p>
+            <script type="text/plain" class="language-csharp line-numbers">
+                public partial class WebForm1 : System.Web.UI.Page
+                {
+                    private static readonly Logger logger = LogManager.GetLogger("databaseLogger");
+
+                    protected void Page_Load(object sender, EventArgs e)
+                    {
+
+                    }
+                }
+            </script>
+            <p>Now all we need to do is add some function calls to the logger and watch the magic happen!</p>
+            <script type="text/plain" class="language-csharp line-numbers">
+                public partial class WebForm1 : System.Web.UI.Page
+                {
+                    private static readonly Logger logger = LogManager.GetLogger("databaseLogger");
+
+                    protected void Page_Load(object sender, EventArgs e)
+                    {
+                        try
+                        {
+                            logger.Info("Attempting to Divide by Zeo");
+
+                            int zero = 0;
+                            int result = 10 / zero;
+                        }
+                        catch(Exception ex)
+                        {
+                            logger.Error(ex, "Can't do that!");
+                        }
+                    }
+                }
+            </script>
+            <p>
+                If everything was set up correctly then we should get some logs added to our SQL Database!<br>
+                <figure><img src="../blogs/images/1/SQL.png"></figure>
+            </p>
+            <br />
+            <br />
+            <div class="heading">Troubleshooting</div>
+            <hr />
+            <p>If you don’t get the same results as me then luckily NLog has it’s own internal logging system built in which is useful for debugging problems when setting NLog up. You can turn this on by finding the <code>nlog</code> node in the NLog.config file and changing the <code>internalLogLevel</code> property to </p>
+            <script type="text/plain" class="language-markup">
+                internalLogLevel = "Trace"
+            </script>
+            <p>You should also make sure that the <code>internalLogFile</code> property is set to somewhere you can find it, mine is set to <code>c:\temp\nlog-internal.log</code>. Reading this log should give you an idea of what is happening when your application is started up and where logs are getting sent to.</p>
+            <div class="subheading"> The Solution for Accessing the Server Logs remotely! </div>
+            <p>I mentioned earlier that there would be a way of accessing the SQL Database logs without having to remote into the server itself. I do not actually have a working solution for this as of yet but I have a solution in mind which I will put into code in the near future. It will involve creating an ASP.NET application which will poll the Log database for entries and display them in a nicely formatted HTML GUI. It will also feature the functionality to show or hide certain logging levels at will, and ‘pretty-print’ the stack traces that are logged for ease of reading. Perhaps once it is created I will make a blog post about it and update with a link here.</p>
+            <p>If you are only interested in Server Side/.NET logging then feel free to leave this Blog Post here, however if you are interested in some Client Side/Javascript Logging then stick around for Part 2!</p>
         </div>
     </article>
 </div>

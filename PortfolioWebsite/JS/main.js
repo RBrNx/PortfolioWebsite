@@ -132,18 +132,13 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
         gridItem.find(".captions, .caption-button").off("click");
 
         page("/Portfolio/" + pagename);
-
-        //loadRepoPage(gridItem);
-
-        //var currURL = window.location.href;
-        //history.pushState(pagename, null, currURL + "#" + pagename);
     }
 
     gridItem.click(function (event) {
         event.stopPropagation();
 
         if(breakpoint.value == "desktop"){
-            gridItemOnClick();
+            $.proxy(gridItemOnClick);
         }
         else {
             var item = $(this);
@@ -345,7 +340,7 @@ function navigateToPortfolioGrid(ctx, next) {
     }
     else if(type == "fromSub") {
         animation = "Scale Up / Scale Up";
-        pageFrom = ".sub-page.page-current";
+        pageFrom = "#portfolio .sub-page.page-current";
         pageTo = "#portfolio-grid-page";
         beforeAnimStart = function () {
             $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
@@ -603,8 +598,9 @@ $(document).ready(function () {
         $("#side-menu .close, .page-current").click(closeSidebar);
     });
 
-    $(".menu-item").click(function () {
-        $(".menu-item.active").removeClass("active");
-        $(this).addClass("active");
+    $(".menu-item, .nav-item").click(function () {
+        $(".menu-item.active, .nav-item.active").removeClass("active");
+        var href = $(this).attr("href");
+        $(".menu-item[href='" + href + "'], .nav-item[href='" + href + "']").addClass("active");
     });
 });
