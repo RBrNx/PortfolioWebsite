@@ -53,7 +53,7 @@ function addBlogToGrid(blogJSON, index) {
 }
 
 function navigateToBlogGrid(ctx, next) {
-    var urlFrom = ctx.state.currURL;
+    var urlFrom = previousURL;
     var urlTo = ctx.path;
     var type = getNavigationType(urlFrom, urlTo);
 
@@ -63,18 +63,19 @@ function navigateToBlogGrid(ctx, next) {
     var beforeAnimStart = function () { };
     var onAnimEnd = function () { };
 
+    $(".menu-item.active, .nav-item.active").removeClass("active");
+    $(".menu-item[href='/Blog'], .nav-item[href='/Blog']").addClass("active");
+
     if (type == "onLoad") {
         $(".main-page.page-current").removeClass("page-current");
         $("#blog").addClass("page-current");
 
-        $(".menu-item.active, .nav-item.active").removeClass("active");
-        $(".menu-item[href='/Blog'], .nav-item[href='/Blog']").addClass("active");
-
         $("#blog-grid-page .blog-grid").addClass("fadeInUp");
         $("#blog-grid-page header").addClass("fadeInDown");
+        next();
         return;
     }
-    else if (type == "fromSub") {
+    else if (type == "fromSamePage") {
         animation = "Scale Up / Scale Up";
         pageFrom = "#blog .sub-page.page-current";
         pageTo = "#blog-grid-page"
@@ -85,8 +86,12 @@ function navigateToBlogGrid(ctx, next) {
             setPageScroll(0);
         };
     }
-    else if (type == "fromMain") {
-        animation = "Fade Left / Fade Right";
+    else if (type == "fromDiffPage") {
+        switch (urlFrom.split("/")[1]) {
+            case "Portfolio":
+                animation = "Fade Left / Fade Right";
+                break;
+        }
         pageFrom = ".main-page.page-current";
         pageTo = "#blog";
         onAnimEnd = function () {
@@ -99,6 +104,8 @@ function navigateToBlogGrid(ctx, next) {
         beforeAnimStart: beforeAnimStart,
         onAnimEnd: onAnimEnd
     });
+
+    next();
 }
 
 function navigateToBlogItem(ctx, next) {
@@ -108,7 +115,7 @@ function navigateToBlogItem(ctx, next) {
     if (gridItem.length > 0) {
         loadBlog(gridItem);
 
-        var urlFrom = ctx.state.currURL;
+        var urlFrom = previousURL;
         var urlTo = ctx.path;
         var type = getNavigationType(urlFrom, urlTo);
 
@@ -124,20 +131,21 @@ function navigateToBlogItem(ctx, next) {
             });
         }, 800);
 
+        $(".menu-item.active, .nav-item.active").removeClass("active");
+        $(".menu-item[href='/Blog'], .nav-item[href='/Blog']").addClass("active");
+
         if (type == "onLoad") {
             $(".main-page.page-current").removeClass("page-current");
             $("#blog").addClass("page-current");
-
-            $(".menu-item.active, .nav-item.active").removeClass("active");
-            $(".menu-item[href='/Blog'], .nav-item[href='/Blog']").addClass("active");
 
             $("#blog-grid-page").removeClass("page-current");
             $("#blog-page").addClass("page-current");
 
             setPageScroll(0);
+            next();
             return;
         }
-        else if (type == "fromSub" || type == "fromMain") {
+        else if (type == "fromSamePage") {
             animation = "Scale Down / Scale Down";
             pageFrom = "#blog .sub-page.page-current";
             pageTo = "#blog-page";
@@ -145,6 +153,22 @@ function navigateToBlogItem(ctx, next) {
                 $("#header").addClass("scrolling-top").removeClass("scrolling-bottom");
                 $("#blog-page").scrollTop(0);
             }
+            onAnimEnd = function () {
+                setPageScroll(0);
+            };
+        }
+        else if (type == "fromDiffPage") {
+            switch (urlFrom.split("/")[1]) {
+                case "Portfolio":
+                    animation = "Fade Left / Fade Right";
+                    break;
+            }
+            pageTo = "#blog";
+            pageFrom = ".main-page.page-current";
+            beforeAnimStart = function () {
+                makePageCurrent("#blog-page");
+                setupCarousel();
+            };
             onAnimEnd = function () {
                 setPageScroll(0);
             };
@@ -159,6 +183,8 @@ function navigateToBlogItem(ctx, next) {
     else {
         page("/Blog");
     }
+
+    next();
 }
 
 function loadBlog(gridItem) {

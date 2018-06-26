@@ -148,6 +148,7 @@ body #website-container #header .navbar .navbar-items .nav-item {
   display: inline-block;
   color: #8a8a8a;
   height: 100%;
+  text-decoration: none;
 }
 body #website-container #header .navbar .navbar-items .nav-item:after {
   height: 2px;
@@ -283,6 +284,9 @@ body #website-container .main-page {
 }
 body #website-container .main-page.animate-left {
   transform: translateX(-70%);
+  overflow: hidden;
+}
+body #website-container .main-page.animating {
   overflow: hidden;
 }
 body #website-container .page-current {
@@ -493,10 +497,12 @@ body #website-container .page-current {
 .pt-page-scaleDown {
   -webkit-animation: scaleDown .7s ease both;
   animation: scaleDown .7s ease both;
+  overflow: hidden;
 }
 .pt-page-scaleUpDown {
   -webkit-animation: scaleUpDown .5s ease both;
   animation: scaleUpDown .5s ease both;
+  overflow: hidden;
 }
 @-webkit-keyframes scaleDownUp {
   to {
@@ -527,10 +533,12 @@ body #website-container .page-current {
 .pt-page-scaleDownUp {
   -webkit-animation: scaleDownUp .5s ease both;
   animation: scaleDownUp .5s ease both;
+  overflow: hidden;
 }
 .pt-page-scaleUp {
   -webkit-animation: scaleUp .7s ease both;
   animation: scaleUp .7s ease both;
+  overflow: hidden;
 }
 @-webkit-keyframes moveToLeftFade {
   to {
@@ -561,10 +569,12 @@ body #website-container .page-current {
 .pt-page-moveToLeftFade {
   -webkit-animation: moveToLeftFade .7s ease both;
   animation: moveToLeftFade .7s ease both;
+  overflow: hidden;
 }
 .pt-page-moveFromRightFade {
   -webkit-animation: moveFromRightFade .7s ease both;
   animation: moveFromRightFade .7s ease both;
+  overflow: hidden;
 }
 @-webkit-keyframes moveToRightFade {
   to {
@@ -595,10 +605,12 @@ body #website-container .page-current {
 .pt-page-moveToRightFade {
   -webkit-animation: moveToRightFade .7s ease both;
   animation: moveToRightFade .7s ease both;
+  overflow: hidden;
 }
 .pt-page-moveFromLeftFade {
   -webkit-animation: moveFromLeftFade .7s ease both;
   animation: moveFromLeftFade .7s ease both;
+  overflow: hidden;
 }
 #blog {
   color: #8a8a8a;
