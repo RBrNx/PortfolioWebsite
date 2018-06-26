@@ -970,6 +970,7 @@ body #website-container .page-current {
   position: absolute;
   bottom: 25px;
   left: 50%;
+  cursor: pointer;
   transform: translateX(-50%);
   transition: opacity 165ms ease-out, transform 165ms ease-out;
 }

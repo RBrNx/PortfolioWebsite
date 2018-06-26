@@ -199,6 +199,16 @@ function loadBlog(gridItem) {
         $("#blog-page .publish-date").text(new Date(currBlog.date).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" }));
 
         Prism.highlightAllUnder($("#blog-page")[0]);
-        new SimpleBar($('#blog-page')[0])
+        new SimpleBar($('#blog-page')[0]);
+
+        setPageScroll(0);
+
+        $(".mouse-scroll").off("click").click(function () {
+            var scrollTo = $(".blog-post header").height();
+            var simpleBar = new SimpleBar($('#blog-page')[0]);
+            var scrollbar = simpleBar.getScrollElement()
+
+            $(scrollbar).animate({ scrollTop: scrollTo }, 800);
+        })
     });
 }

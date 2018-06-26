@@ -40,7 +40,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/15/2015 03:06:24</publishTime>
     </File>
     <File Include="bin/PortfolioWebsite.dll">
-      <publishTime>06/25/2018 16:37:17</publishTime>
+      <publishTime>06/26/2018 12:12:13</publishTime>
     </File>
     <File Include="bin/PortfolioWebsite.pdb">
       <publishTime>06/12/2018 22:42:38</publishTime>
@@ -106,13 +106,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/11/2018 15:17:20</publishTime>
     </File>
     <File Include="CSS/blog.css">
-      <publishTime>06/25/2018 16:10:37</publishTime>
+      <publishTime>06/25/2018 16:59:55</publishTime>
     </File>
     <File Include="CSS/blog.less">
       <publishTime>06/25/2018 16:18:25</publishTime>
     </File>
     <File Include="CSS/blog.min.css">
-      <publishTime>06/25/2018 16:10:37</publishTime>
+      <publishTime>06/25/2018 16:59:55</publishTime>
     </File>
     <File Include="CSS/fontawesome-all.min.css">
       <publishTime>03/14/2018 10:15:55</publishTime>
@@ -127,7 +127,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/20/2018 09:41:37</publishTime>
     </File>
     <File Include="CSS/global.less">
-      <publishTime>06/25/2018 10:54:01</publishTime>
+      <publishTime>06/25/2018 16:59:56</publishTime>
     </File>
     <File Include="CSS/global.min.css">
       <publishTime>06/20/2018 09:41:37</publishTime>
@@ -142,13 +142,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/19/2018 16:13:30</publishTime>
     </File>
     <File Include="CSS/portfolio.css">
-      <publishTime>06/25/2018 16:06:58</publishTime>
+      <publishTime>06/25/2018 16:59:56</publishTime>
     </File>
     <File Include="CSS/portfolio.less">
       <publishTime>06/25/2018 16:06:58</publishTime>
     </File>
     <File Include="CSS/portfolio.min.css">
-      <publishTime>06/25/2018 16:06:58</publishTime>
+      <publishTime>06/25/2018 16:59:56</publishTime>
     </File>
     <File Include="CSS/prism.css">
       <publishTime>06/22/2018 09:46:06</publishTime>
@@ -259,7 +259,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/25/2018 16:30:04</publishTime>
     </File>
     <File Include="JS/blog.js">
-      <publishTime>06/25/2018 16:27:30</publishTime>
+      <publishTime>06/26/2018 11:36:29</publishTime>
     </File>
     <File Include="JS/isInViewport.js">
       <publishTime>06/13/2018 11:57:11</publishTime>
@@ -271,7 +271,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/15/2018 10:21:19</publishTime>
     </File>
     <File Include="JS/main.js">
-      <publishTime>06/25/2018 16:35:52</publishTime>
+      <publishTime>06/26/2018 12:04:17</publishTime>
     </File>
     <File Include="JS/modernizer.custom.js">
       <publishTime>06/11/2018 17:48:51</publishTime>

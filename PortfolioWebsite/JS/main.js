@@ -46,7 +46,10 @@ $(window).resize(function () {
 function setPageScroll(scrollTop) {
     if (scrollTop) lastScrollTop = scrollTop;
 
-    $(".sub-page.page-current").off("scroll").scroll(function (event) {
+    var simpleBar = new SimpleBar($('.main-page.page-current .sub-page.page-current')[0]);
+    var scrollbar = simpleBar.getScrollElement()
+
+    $(scrollbar).off("scroll").scroll(function (event) {
         var st = $(this).scrollTop();
 
         if (st > lastScrollTop) {

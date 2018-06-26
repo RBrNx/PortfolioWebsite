@@ -126,7 +126,15 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
     function gridItemOnClick() {
         event.stopPropagation();
 
-        var gridItem = $(this).parents(".grid-item");
+        var gridItem = null;
+
+        if ($(this).is(".grid-item")) {
+            gridItem = $(this);
+        }
+        else {
+            gridItem = $(this).parents(".grid-item");
+        }
+
         var pagename = gridItem.attr("data-pagename");
 
         gridItem.find(".captions, .caption-button").off("click");
@@ -135,10 +143,11 @@ function addRepositoryToPortfolio(infoJSON, repoID) {
     }
 
     gridItem.click(function (event) {
-        event.stopPropagation();
+        //event.stopPropagation();
 
         if(breakpoint.value == "desktop"){
-            $.proxy(gridItemOnClick);
+            var func = $.proxy(gridItemOnClick, this);
+            func();
         }
         else {
             var item = $(this);
@@ -255,7 +264,7 @@ function animateBond() {
                                 
                                 setTimeout(function () {
                                     onLoadComplete();
-                                }, 100);
+                                }, 0);
 
                                 $(".loading-overlay").addClass("circle-intro");
 
@@ -300,19 +309,17 @@ function animateBond() {
 animateBond();
 
 function getNavigationType(urlFrom, urlTo) {
-    if (urlFrom === urlTo) return "onLoad";
+    if (urlFrom == null) return "onLoad";
 
     var urlFromSplit = urlFrom.split("/");
     var urlToSplit = urlTo.split("/");
 
-    if (urlFromSplit[1].toLowerCase() != urlToSplit[1].toLowerCase()) return "fromMain";
+    if (urlFromSplit[1].toLowerCase() != urlToSplit[1].toLowerCase()) return "fromDiffPage";
 
-    return "fromSub";
+    return "fromSamePage";
 }
 
 function preNavigation(ctx, next) {
-    ctx.state.currURL = window.location.pathname;
-
     if ($("#header").hasClass("animate-left")) {
         $("#side-menu .close").click();
         setTimeout(next, 400);
@@ -323,7 +330,7 @@ function preNavigation(ctx, next) {
 }
 
 function navigateToPortfolioGrid(ctx, next) {
-    var urlFrom = ctx.state.currURL;
+    var urlFrom = previousURL;
     var urlTo = ctx.path;
     var type = getNavigationType(urlFrom, urlTo);
 
@@ -333,12 +340,16 @@ function navigateToPortfolioGrid(ctx, next) {
     var beforeAnimStart = function () { };
     var onAnimEnd = function () { };
 
+    $(".menu-item.active, .nav-item.active").removeClass("active");
+    $(".menu-item[href='/Portfolio'], .nav-item[href='/Portfolio']").addClass("active");
+
     if (type == "onLoad") {
         $("#portfolio-grid-page .portfolio-grid").addClass("fadeInUp");
         $("#portfolio-grid-page .title-container").addClass("fadeInDown");
+        next();
         return;
     }
-    else if(type == "fromSub") {
+    else if(type == "fromSamePage") {
         animation = "Scale Up / Scale Up";
         pageFrom = "#portfolio .sub-page.page-current";
         pageTo = "#portfolio-grid-page";
@@ -351,13 +362,16 @@ function navigateToPortfolioGrid(ctx, next) {
             setPageScroll(0);
         };
     }
-    else if (type == "fromMain") {
-        animation = "Fade Right / Fade Left";
+    else if (type == "fromDiffPage") {
+        switch (urlFrom.split("/")[1]) {
+            case "Blog":
+                animation = "Fade Right / Fade Left";
+                break;
+        }
         pageFrom = ".main-page.page-current";
         pageTo = "#portfolio";
         beforeAnimStart = function () {
-            $("#portfolio-item-page").removeClass("page-current");
-            $("#portfolio-grid-page").addClass("page-current");
+            makePageCurrent("#portfolio-grid-page");
         }
         onAnimEnd = function () {
             setPageScroll(0);
@@ -369,6 +383,8 @@ function navigateToPortfolioGrid(ctx, next) {
         beforeAnimStart: beforeAnimStart,
         onAnimEnd: onAnimEnd
     });
+
+    next();
 }
 
 function navigateToPortfolioItem(ctx, next) {
@@ -378,7 +394,7 @@ function navigateToPortfolioItem(ctx, next) {
     if (gridItem.length > 0) {
         loadRepoPage(gridItem);
 
-        var urlFrom = ctx.state.currURL;
+        var urlFrom = previousURL;
         var urlTo = ctx.path;
         var type = getNavigationType(urlFrom, urlTo);
 
@@ -394,7 +410,12 @@ function navigateToPortfolioItem(ctx, next) {
             });
         }, 800);
 
+        $(".menu-item.active, .nav-item.active").removeClass("active");
+        $(".menu-item[href='/Portfolio'], .nav-item[href='/Portfolio']").addClass("active");
+
         function setupCarousel() {
+            if ($(".carousel").hasClass("slick-initialized")) $(".carousel").slick("unslick");
+
             $(".carousel").slick({
                 arrows: true,
                 swipe: true,
@@ -402,6 +423,7 @@ function navigateToPortfolioItem(ctx, next) {
                 dots: true,
                 speed: 500
             });
+
             $(".slick-list").css({ "top": "50%", "transform": "translateY(-50%)" });
 
             var carouselHeight = 0;
@@ -415,16 +437,32 @@ function navigateToPortfolioItem(ctx, next) {
         }
 
         if (type == "onLoad") {
-            $("#portfolio-grid-page").removeClass("page-current");
-            $("#portfolio-item-page").addClass("page-current");
+            makePageCurrent("#portfolio-item-page");
             setupCarousel();
+            next();
             return;
         }
-        else if (type == "fromSub" || type == "fromMain") {
-            animation = "Scale Down / Scale Down";
+        else if (type == "fromSamePage") {
+            animation = "Scale Up / Scale Up";
             pageFrom = "#portfolio .sub-page.page-current";
             pageTo = "#portfolio-item-page";
             beforeAnimStart = function () {
+                setupCarousel();
+            };
+            onAnimEnd = function () {
+                setPageScroll(0);
+            };
+        }
+        else if (type == "fromDiffPage") {
+            switch (urlFrom.split("/")[1]) {
+                case "Blog":
+                    animation = "Fade Right / Fade Left";
+                    break;
+            }
+            pageTo = "#portfolio";
+            pageFrom = ".main-page.page-current";
+            beforeAnimStart = function () {
+                makePageCurrent("#portfolio-item-page");
                 setupCarousel();
             };
             onAnimEnd = function () {
@@ -441,17 +479,36 @@ function navigateToPortfolioItem(ctx, next) {
     else {
         page("/Portfolio");
     }
+
+    next();
+}
+
+function makePageCurrent(page) {
+    if($(page).is(".main-page")){
+        $(".main-page").removeClass("page-current");
+        $(page).addClass("page-current");
+    }
+    else if ($(page).is(".sub-page")) {
+        var parent = $(page).parents(".main-page");
+        parent.find(".sub-page").removeClass("page-current");
+        $(page).addClass("page-current");
+    }
+}
+
+var previousURL = null;
+function addToHistory(ctx, next) {
+    previousURL = ctx.path;
 }
 
 function onLoadComplete() {
     setTimeout(function () { $(".loading-overlay").hide(); }, 1010);
 
-    page("/", preNavigation, navigateToPortfolioGrid);
-    page("/Portfolio", preNavigation, navigateToPortfolioGrid);
-    page("/Portfolio/:page", preNavigation, navigateToPortfolioItem);
-    page("/Blog", preNavigation, navigateToBlogGrid);
-    page("/Blog/:page", preNavigation, navigateToBlogItem);
-    page('*', preNavigation, navigateToPortfolioGrid)
+    page("/", preNavigation, navigateToPortfolioGrid, addToHistory);
+    page("/Portfolio", preNavigation, navigateToPortfolioGrid, addToHistory);
+    page("/Portfolio/:page", preNavigation, navigateToPortfolioItem, addToHistory);
+    page("/Blog", preNavigation, navigateToBlogGrid, addToHistory);
+    page("/Blog/:page", preNavigation, navigateToBlogItem, addToHistory);
+    page('*', preNavigation, navigateToPortfolioGrid, addToHistory);
     page();
 }
 
@@ -545,6 +602,7 @@ function animatePages(fromPage, toPage, options) {
     }
     
     _toP.addClass("page-current");
+    $(".main-page").addClass("animating");
 
 
     if (_options.beforeAnimStart) {
@@ -559,6 +617,8 @@ function animatePages(fromPage, toPage, options) {
     $(toPage).addClass(toAnimation + " pt-page-delay300").on("animationend", function () {
         _toP.off("animationend");
         _toP.removeClass(toAnimation + " pt-page-delay300");
+
+        $(".main-page").removeClass("animating");
 
         if (_options.onAnimEnd) {
             var func = _options.onAnimEnd;
@@ -598,9 +658,9 @@ $(document).ready(function () {
         $("#side-menu .close, .page-current").click(closeSidebar);
     });
 
-    $(".menu-item, .nav-item").click(function () {
-        $(".menu-item.active, .nav-item.active").removeClass("active");
-        var href = $(this).attr("href");
-        $(".menu-item[href='" + href + "'], .nav-item[href='" + href + "']").addClass("active");
-    });
+    //$(".menu-item, .nav-item").click(function () {
+    //    $(".menu-item.active, .nav-item.active").removeClass("active");
+    //    var href = $(this).attr("href");
+    //    $(".menu-item[href='" + href + "'], .nav-item[href='" + href + "']").addClass("active");
+    //});
 });
